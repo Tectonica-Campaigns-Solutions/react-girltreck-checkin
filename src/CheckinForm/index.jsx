@@ -21,6 +21,7 @@ const CheckingForm = () => {
 
   // ======================
   // Hooks
+  // When state acceptGeolocation changes, pass current location to formData
   useEffect(() => {
     if(acceptGeolocation) {
       setLoadingMap(true);
@@ -42,6 +43,7 @@ const CheckingForm = () => {
     }
   }, [acceptGeolocation])
 
+  // Geolocate user when app mounts
   useEffect(() => {
     navigator.permissions.query({name:'geolocation'}).then(function(result) {
       if (result.state === 'granted') {
@@ -53,7 +55,7 @@ const CheckingForm = () => {
       }})
   }, [])
   
-
+  // Get location data using Mapbox Api when coords state changes
   useEffect(() => {
     const getMapboxEndpoint = async(event) => {
       let formatedResults = {};
