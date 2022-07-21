@@ -1,0 +1,32 @@
+.page-grid {
+  position: fixed;
+  top: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 1000;
+  display: none;
+  pointer-events: none;
+
+  .container {
+    width: inherit;
+    height: inherit;
+  }
+  
+  .row {
+    height: inherit;
+  }
+
+  .col-md-1 {
+    height: inherit;
+  }
+
+  .col-bg {
+    width: 100%;
+    height: 100%;
+    background-color: #00ff622f;
+  }
+}
+
+.show {
+  display: block;
+}

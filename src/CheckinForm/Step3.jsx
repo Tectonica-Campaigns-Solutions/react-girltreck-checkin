@@ -1,0 +1,147 @@
+import React, { useState } from 'react'
+import Button from './Button';
+import { updateUserData } from './services/updateUserData';
+import countriesList from './utils/countiresList';
+import stepImage from '../images/step-1-bg.jpg'
+import Logo from './Logo';
+
+export const Step3 = ({ formData, handleClick, handleChange }) => {
+  const [error, setError] = useState('');
+
+  // ======================
+  // Event handlers
+
+  const checkInputsData = async (e) => {
+    if(!formData["Country"]) {
+      setError('Please, add the country')
+    } else if (!formData["City"]) {
+      setError('Please, add a city')
+    } else if(!formData["State"]) {
+      setError('Please, add a state')
+    } else if(!formData["Postal Code"]) {
+      setError('Please, add a postal code')
+    } else {
+      try {
+        let response = await updateUserData(formData);
+        if (response) {
+          handleClick(e);
+        } else {
+          setError(`Error`)
+        }
+      } catch (error) {
+        console.error(error);
+      }
+    }
+  }
+  
+  const checkFormState = (e) => {
+    handleChange(e)
+  }
+
+  return (
+    <div className="step step__3">
+
+      <div className="step__background">
+        <img src={stepImage} alt="" />
+      </div>
+
+      <div className="container">
+        <div className="site__logo">
+          <Logo/>
+        </div>
+        <div className="step__background--color">
+        </div>
+
+        <div className="step__content">
+
+          <div className="row step__inputs">
+            <div className="offset-lg-4 col-lg-8">
+              <h3 className="step__input-headline">Where are you walking with your crew?</h3>
+              <p className="step__text">Fill out the info below so we can connect women to you.</p>
+            </div>
+
+            <div className="col-lg-4 offset-lg-4">
+              <div className="input-wrapper">
+                <label htmlFor="country">Country *</label>
+                <select 
+                  onChange={(e) => checkFormState(e)}
+                  id="country" 
+                  name="Country" 
+                  value={formData.country}
+                >
+                  <option value="">Select</option>
+                  {
+                    countriesList.map(country => <option key={country} value={country}>{country}</option>)
+                  }
+                </select>
+              </div>
+            </div>
+            <div className="col-lg-4">
+              <div className="input-wrapper">
+                <label htmlFor="city">City *</label>
+                <input 
+                  onChange={(e) => checkFormState(e)}
+                  type="text" 
+                  id="city" 
+                  name="City" 
+                  placeholder=""
+                  value={formData["City"]}
+                />
+              </div>
+            </div>
+            <div className="col-lg-4 offset-lg-4">
+              <div className="input-wrapper">
+                <label htmlFor="neighborhood">Neighborhood *</label>
+                <input 
+                  onChange={(e) => checkFormState(e)}
+                  type="text" 
+                  id="neighborhood" 
+                  name="Neighborhood" 
+                  placeholder="ie: Greenville"
+                  value={formData.neighborhood}
+                />
+              </div>
+            </div>
+            <div className="col-lg-4">
+              <div className="input-wrapper">
+                <label htmlFor="state">State *</label>
+                <input 
+                  onChange={(e) => checkFormState(e)}
+                  type="text" 
+                  id="state" 
+                  name="State" 
+                  placeholder=""
+                  value={formData["State"]}
+                />
+              </div>
+            </div>
+            <div className="col-lg-4 offset-lg-4">
+              <div className="input-wrapper">
+                <label htmlFor="postal-code">ZIP or Postal Code *</label>
+                <input 
+                  onChange={(e) => checkFormState(e)}
+                  type="text" 
+                  id="postal-code" 
+                  name="Postal Code" 
+                  value={formData["Postal Code"]}
+                />
+              </div>
+            </div>
+          </div>
+
+          <div className="row">
+            <div className="col-lg-8 offset-lg-4">
+              <Button checkInputsData={checkInputsData}/>
+              {
+                error 
+                  &&
+                <p className="error-message">{error}</p>
+              }
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  )
+}
