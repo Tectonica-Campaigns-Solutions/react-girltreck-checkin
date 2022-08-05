@@ -15,9 +15,15 @@ const Consent = ({formData, acceptData, acceptGDPR, setAcceptData,setAcceptGDPR}
   //     acceptGDPR: acceptGDPR,
   //   });
   // }, [acceptGDPR])
+  const [accData, setAcctData] = useState(false)
+  const [accGdpr, setAcctGdpr] = useState(false)
 
-  const handleChange = (e) => {
-    setAcceptGDPR(!acceptGDPR)
+  const handleChangeData = () => {
+    setAcctData(!accData)
+  }
+
+  const handleChangeGdpr = () => {
+    setAcctGdpr(!accGdpr)
   }
   
   return (
@@ -33,10 +39,10 @@ const Consent = ({formData, acceptData, acceptGDPR, setAcceptData,setAcceptGDPR}
               id="gdpr-yes" 
               type="checkbox" 
               name="gdprConsent"
-              checked={acceptGDPR ? true : false}
-              onClick={(e) => handleChange(e)} 
+              checked={accGdpr ? true : false}
+              
             />
-            <span className="checkmark"/>
+            <span className="checkmark" onClick={ handleChangeGdpr }/>
           </label>
           <label className="input-wrapper input-wrapper--checkbox" htmlFor="gdprConsent">
             <span className="input-label">No</span>
@@ -45,10 +51,10 @@ const Consent = ({formData, acceptData, acceptGDPR, setAcceptData,setAcceptGDPR}
               id="gdpr-no" 
               type="checkbox" 
               name="gdprConsent"
-              checked={acceptGDPR ? false : true}
-              onClick={(e) => handleChange(e)} 
+              checked={accGdpr ? false : true}
+             
             />
-            <span className="checkmark"/>
+            <span className="checkmark" onClick={ handleChangeGdpr } />
           </label>
         </div>
       </div>
@@ -63,10 +69,10 @@ const Consent = ({formData, acceptData, acceptGDPR, setAcceptData,setAcceptGDPR}
               id="data-yes" 
               type="checkbox" 
               name="dataConsent"
-              checked={acceptData ? true : false}
-              onChange={() => setAcceptData(!acceptData)} 
+              checked={accData ? true : false}
+              
             />
-            <span className="checkmark"/>
+            <span className="checkmark" onClick={ handleChangeData } />
           </label>
           <label className="input-wrapper input-wrapper--checkbox" htmlFor="dataConsent">
             <span className="input-label">No</span>
@@ -75,10 +81,10 @@ const Consent = ({formData, acceptData, acceptGDPR, setAcceptData,setAcceptGDPR}
               id="data-no" 
               type="checkbox" 
               name="dataConsent"
-              checked={acceptData ? false : true}
-              onChange={() => setAcceptData(!acceptData)} 
+              checked={accData ? false : true}
+               
             />
-            <span className="checkmark"/>
+            <span className="checkmark" onClick={ handleChangeData }/>
           </label>
         </div>
       </div>

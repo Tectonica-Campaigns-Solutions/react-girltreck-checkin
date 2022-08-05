@@ -46,7 +46,9 @@ const CheckingForm = () => {
   // Geolocate user when app mounts
   useEffect(() => {
     navigator.permissions.query({name:'geolocation'}).then(function(result) {
-      if (result.state === 'granted') {
+
+      if (result.state === 'granted' || result.state === 'prompt') {
+        
         setAcceptGeolocation(true)
         setLocalizationEnabled(true)
       } else if (result.state === 'denied') {
