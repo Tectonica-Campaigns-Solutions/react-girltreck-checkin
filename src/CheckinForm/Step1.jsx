@@ -32,7 +32,6 @@ export const Step1 = ({ formData, setFormData, handleClick, handleChange }) => {
       let response = await getUserData(formData.Email);
       if (response) {
         setUser(response);
-        console.log(response)
         const formatedResponse = {
           Name: response.Name,
           Email: response.Email,

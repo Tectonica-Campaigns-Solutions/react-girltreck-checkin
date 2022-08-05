@@ -9,12 +9,6 @@ import { useEffect } from 'react';
 
 const Consent = ({formData, acceptData, acceptGDPR, setAcceptData,setAcceptGDPR}) => {
 
-  // useEffect(() => {
-  //   setFormData({
-  //     ...formData,
-  //     acceptGDPR: acceptGDPR,
-  //   });
-  // }, [acceptGDPR])
   const [accData, setAcctData] = useState(false)
   const [accGdpr, setAcctGdpr] = useState(false)
 

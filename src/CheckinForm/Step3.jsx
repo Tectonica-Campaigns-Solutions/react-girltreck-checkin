@@ -2,11 +2,13 @@ import React, { useState } from 'react'
 import Button from './Button';
 import { updateUserData } from './services/updateUserData';
 import countriesList from './utils/countiresList';
+import statesUsa from './utils/statesUsa'
 import stepImage from '../images/step-1-bg.jpg'
 import Logo from './Logo';
 
 export const Step3 = ({ formData, handleClick, handleChange }) => {
-  const [error, setError] = useState('');
+  const [error, setError] = useState('')
+  const [currentUsa, setCurrentUsa] = useState(false)
 
   // ======================
   // Event handlers
@@ -16,7 +18,7 @@ export const Step3 = ({ formData, handleClick, handleChange }) => {
       setError('Please, add the country')
     } else if (!formData["City"]) {
       setError('Please, add a city')
-    } else if(!formData["State"]) {
+    } else if(!formData["State"] && formData["Country"] == 'United States of America (the)') {
       setError('Please, add a state')
     } else if(!formData["Postal Code"]) {
       setError('Please, add a postal code')
@@ -35,12 +37,19 @@ export const Step3 = ({ formData, handleClick, handleChange }) => {
   }
   
   const checkFormState = (e) => {
+    
+    if(e.target.id == 'country'){
+      setCurrentUsa(false)
+      if(e.target.value == 'United States of America (the)'){
+        setCurrentUsa(true)
+      }
+      
+    }
     handleChange(e)
   }
 
   return (
     <div className="step step__3">
-
       <div className="step__background">
         <img src={stepImage} alt="" />
       </div>
@@ -85,7 +94,7 @@ export const Step3 = ({ formData, handleClick, handleChange }) => {
                   id="city" 
                   name="City" 
                   placeholder=""
-                  value={formData["City"]}
+                  value={formData.city}
                 />
               </div>
             </div>
@@ -102,19 +111,43 @@ export const Step3 = ({ formData, handleClick, handleChange }) => {
                 />
               </div>
             </div>
-            <div className="col-lg-4">
-              <div className="input-wrapper">
-                <label htmlFor="state">State *</label>
-                <input 
-                  onChange={(e) => checkFormState(e)}
-                  type="text" 
-                  id="state" 
-                  name="State" 
-                  placeholder=""
-                  value={formData["State"]}
-                />
-              </div>
-            </div>
+            {
+              currentUsa && (
+                <div className="col-lg-4">
+                  <div className="input-wrapper">
+                    <label htmlFor="state">State *</label>
+                    <select 
+                      onChange={(e) => checkFormState(e)}
+                      id="state" 
+                      name="State"
+                    >
+                      
+                      <option value="">Select</option>
+                      {
+                        statesUsa.map(state => <option key={state} value={state}>{state}</option>)
+                      }
+                      
+                    </select>
+                  </div>
+                </div>
+              )
+            }
+            {
+              !currentUsa && (
+                <div className="col-lg-4">
+                  <div className="input-wrapper">
+                    <label htmlFor="state">State</label>
+                    <input 
+                      type="text" 
+                      id="non-usa-state" 
+                      name="non USA state"
+                      value={formData["non USA state"]} 
+                    />
+                  </div>
+                </div>  
+              )
+            }
+            
             <div className="col-lg-4 offset-lg-4">
               <div className="input-wrapper">
                 <label htmlFor="postal-code">ZIP or Postal Code *</label>
