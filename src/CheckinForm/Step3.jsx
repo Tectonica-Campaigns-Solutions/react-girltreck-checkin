@@ -43,7 +43,6 @@ export const Step3 = ({ formData, handleClick, handleChange }) => {
       if(e.target.value == 'United States of America (the)'){
         setCurrentUsa(true)
       }
-      
     }
     handleChange(e)
   }
@@ -138,6 +137,7 @@ export const Step3 = ({ formData, handleClick, handleChange }) => {
                   <div className="input-wrapper">
                     <label htmlFor="state">State</label>
                     <input 
+                      onChange={(e) => checkFormState(e)}
                       type="text" 
                       id="non-usa-state" 
                       name="non USA state"

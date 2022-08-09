@@ -1,5 +1,6 @@
 import React, { useContext, useState } from 'react'
 import { getUserData } from './services/getUserData'
+import { checkSimilarMail } from './services/checkSimilarMail'
 import UserContext from './UserContext';
 import Logo from './Logo';
 import Button from './Button';
@@ -9,6 +10,7 @@ export const Step1 = ({ formData, setFormData, handleClick, handleChange }) => {
   const [error, setError] = useState(false);
   const [loadingResponse, setLoadingResponse] = useState(false);
   const { setUser } = useContext(UserContext);
+  const [showSimilar, setShowSimilar] = useState({show: false, alreadyclicked: false, items: []});
 
 
   // ======================
@@ -28,24 +30,42 @@ export const Step1 = ({ formData, setFormData, handleClick, handleChange }) => {
   
   const checkEmail = async (e) => {
     setLoadingResponse(true);
+    let similarMail;
     try {
-      let response = await getUserData(formData.Email);
-      if (response) {
-        setUser(response);
-        const formatedResponse = {
-          Name: response.Name,
-          Email: response.Email,
-          Role: 'Crew Attendee'
+      if(!showSimilar.alreadyclicked){
+        similarMail = await checkSimilarMail(formData.Email[0], formData.Email);
+        if(similarMail && similarMail.length > 0){
+          setShowSimilar({show: true, alreadyclicked: false, items: [...similarMail]})
         }
-        setFormData({...formData, ...formatedResponse});
-      } else {
-        setUser(false);
+        else{
+          let response = await getUserData(formData.Email);
+          if (response) {
+            setUser(response);
+            const formatedResponse = {
+              Name: response.Name,
+              Email: response.Email,
+              Role: 'Crew Attendee'
+            }
+            setFormData({...formData, ...formatedResponse});
+          } else {
+            setUser(false);
+          }
+          handleClick(e);
+          setLoadingResponse(false);
+        }
       }
-      handleClick(e);
-      setLoadingResponse(false);
+     
+        
     } catch (error) {
       console.error(error);
     }
+  }
+
+  const handlerPopUpMail = (newMail) => {
+    setLoadingResponse(false)
+    setShowSimilar({show: false,alreadyclicked: true, items: []})
+    // setFormData(current => ({Email: newMail, ...current}))
+    // console.log(formData)
   }
   
   
@@ -93,6 +113,16 @@ export const Step1 = ({ formData, setFormData, handleClick, handleChange }) => {
                   placeholder="ie: yourname@example.com"
                   value={formData.Email ? formData.Email : ""}
                 />
+                {
+                  showSimilar && showSimilar.show && <div className="box-mails">
+                   
+                    <p>There are this similar emails already registered, choose one to proceed:</p>
+                    <div onClick={() => handlerPopUpMail(formData.Email)}>{formData.Email}</div>
+                    { showSimilar.items.map((item, index) => 
+                        <div key={index} onClick={() => handlerPopUpMail(item)}>{item}</div>
+                      )}
+                  </div>
+                }
               </div>
 
               <div className="input-wrapper">
@@ -110,7 +140,7 @@ export const Step1 = ({ formData, setFormData, handleClick, handleChange }) => {
               </div>
             </div>
 
-            <Button checkInputsData={checkInputsData}/>
+            <Button checkInputsData={checkInputsData} disabled={showSimilar.show} loading={loadingResponse}/>
             {
               error 
                 &&

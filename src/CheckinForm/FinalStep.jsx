@@ -4,7 +4,7 @@ import Logo from './Logo';
 
 export const FinalStep = ({ formData, handleClick, handleChange }) => {
 
-
+  console.log(formData)
   return (
     <>
       <section className="step step__final">

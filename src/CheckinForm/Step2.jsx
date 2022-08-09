@@ -8,7 +8,7 @@ import { updateUserData } from './services/updateUserData';
 import { useEffect } from 'react';
 
 const Consent = ({formData, acceptData, acceptGDPR, setAcceptData,setAcceptGDPR}) => {
-
+  
   const [accData, setAcctData] = useState(false)
   const [accGdpr, setAcctGdpr] = useState(false)
 

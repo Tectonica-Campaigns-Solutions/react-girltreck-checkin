@@ -293,6 +293,12 @@
   .step__background--color {
     width: calc((8.33333333% * 5 ) + 0.75rem);
   }
+  .step__button.hide{
+    opacity:0.5;
+    + svg{
+      opacity:0.5;
+    }
+  }
 }
 
 .step__2,
@@ -450,6 +456,22 @@
 
 .mapboxgl-map {
   margin-top: 20px;
+}
+
+.box-mails{
+  margin-top:-20px;
+  border:1px solid red;
+  margin-bottom:10px;
+  position:relative;
+  padding:10px;
+  > div{
+    padding:5px 0;
+    border-bottom:1px solid #ccc;
+    cursor:pointer;
+    &:hover{
+      opacity:0.8;
+    }
+  }
 }
 
 .loader-container {

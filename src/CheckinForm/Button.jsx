@@ -1,10 +1,10 @@
 import React from 'react';
 import ButtonRightShape from './ButtonRightShape';
 
-const Button = ({checkInputsData}) => {
+const Button = ({checkInputsData, disabled=false, loading=false }) => {
   return (
     <div onClick={(e) => checkInputsData(e)} className="button-wrapper">
-      <button id="continue" className="step__button">Continue</button>
+      <button id="continue" className={`step__button ${ disabled ? 'hide': ''} ${ loading ? 'hide': ''}`} disabled={disabled ? 'disabled': ''}>Continue</button>
       <ButtonRightShape/>
     </div>
   )
