@@ -11,6 +11,7 @@ const Consent = ({formData, acceptData, acceptGDPR, setAcceptData,setAcceptGDPR}
   
   const [accData, setAcctData] = useState(false)
   const [accGdpr, setAcctGdpr] = useState(false)
+  const [accLiab, setAcctLiab] = useState(false)
 
   const handleChangeData = () => {
     setAcctData(!accData)
@@ -18,6 +19,10 @@ const Consent = ({formData, acceptData, acceptGDPR, setAcceptData,setAcceptGDPR}
 
   const handleChangeGdpr = () => {
     setAcctGdpr(!accGdpr)
+  }
+
+  const handleChangeLiability = () => {
+    setAcctLiab(!accGdpr)
   }
   
   return (
@@ -79,6 +84,34 @@ const Consent = ({formData, acceptData, acceptGDPR, setAcceptData,setAcceptGDPR}
                
             />
             <span className="checkmark" onClick={ handleChangeData }/>
+          </label>
+        </div>
+      </div>
+      <div className="col-lg-4 offset-lg-4 consent-wrapper">
+        <p className="label">Liability Consent</p>
+        <p className="consent__text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer dui eu mollis est viverra amet purus. Link to privacy policy or more details</p>
+        <div className="consent-inputs">
+          <label className="input-wrapper input-wrapper--checkbox" htmlFor="dataConsent">
+            <span className="input-label">Yes</span>
+            <input 
+              value="yes"
+              id="data-yes" 
+              type="checkbox" 
+              name="dataConsent"
+              checked={accLiab ? true : false}
+            />
+            <span className="checkmark" onClick={ handleChangeLiability } />
+          </label>
+          <label className="input-wrapper input-wrapper--checkbox" htmlFor="dataConsent">
+            <span className="input-label">No</span>
+            <input 
+              value="no"
+              id="data-no" 
+              type="checkbox" 
+              name="dataConsent"
+              checked={accLiab ? false : true}
+            />
+            <span className="checkmark" onClick={ handleChangeLiability }/>
           </label>
         </div>
       </div>
@@ -183,7 +216,7 @@ export const Step2 = ({ formData, loadingMap, acceptGDPR, acceptData, setAcceptG
                 onChange={(e) => checkFormState(e)}
               />
             </div>
-            <div className="offset-lg-4 col-lg-4 input-wrapper padding-l">
+            <div className="offset-lg-4 col-lg-4 input-wrapper">
               <label htmlFor="email">Crew Leader Email*</label>
               <input 
                 required 
@@ -196,7 +229,19 @@ export const Step2 = ({ formData, loadingMap, acceptGDPR, acceptData, setAcceptG
               />
             </div>
             <div className="col-lg-4 input-wrapper">
-              <label htmlFor="crew-affiliation">Crew Affiliation: My crew is officially associated with...*</label>
+              <label htmlFor="phone">Phone Number*</label>
+              <input 
+                required 
+                id="phone" 
+                type="phone" 
+                placeholder=""
+                name="Phone" 
+                value={formData.Phone}
+                onChange={(e) => checkFormState(e)}
+              />
+            </div>
+            <div className="offset-lg-4 col-lg-4 input-wrapper">
+              <label htmlFor="crew-affiliation">Crew Affiliation.*</label>
               <select 
                 id="crew-affiliation" 
                 name="Affiliation" 
@@ -211,19 +256,11 @@ export const Step2 = ({ formData, loadingMap, acceptGDPR, acceptData, setAcceptG
                 <option value="Ally">Ally</option>
               </select>
             </div>
-            <div className="offset-lg-4 col-lg-4 input-wrapper">
-              <label htmlFor="phone">Phone Number*</label>
-              <input 
-                required 
-                id="phone" 
-                type="phone" 
-                placeholder=""
-                name="Phone" 
-                value={formData.Phone}
-                onChange={(e) => checkFormState(e)}
-              />
+            <div className="col-lg-4 input-wrapper padding-l">
+              <p>Are you leading a crew that is officially associated with a special impact area? Let us know and connect with a special impact coach here.</p>
             </div>
-            <div className="col-lg-4 input-wrapper">
+            
+            <div className="offset-lg-4 col-lg-4 input-wrapper">
               <label htmlFor="role">Role*</label>
               <select 
                 id="role" 
@@ -232,9 +269,12 @@ export const Step2 = ({ formData, loadingMap, acceptGDPR, acceptData, setAcceptG
                 onChange={(e) => checkFormState(e)}
               >
                 <option value="">Select</option>
-                <option value="Crew Attendee">Crew Attendee</option>
-                <option value="Crew Leader">Crew Leader</option>
-                <option value="Solo Treker">Solo Treker</option>
+                <option value="">Neighborhood Crew Leader</option>
+                <option value="">Special Impact Crew Leader - Soroities</option>
+                <option value="">Special Impact Crew Leader - Churches</option>
+                <option value="">Special Impact Crew Leader - Adventure Squad</option>
+                <option value="">Special Impact Crew Leader - HBCUs</option>
+                <option value="">Special Impact Crew Leader - Partner/Organization</option>
               </select>
             </div>
 
