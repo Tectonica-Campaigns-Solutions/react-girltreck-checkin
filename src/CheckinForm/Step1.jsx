@@ -31,29 +31,34 @@ export const Step1 = ({ formData, setFormData, handleClick, handleChange }) => {
   const checkEmail = async (e) => {
     setLoadingResponse(true);
     let similarMail;
+    let preventSend = false;
     try {
       if(!showSimilar.alreadyclicked){
         similarMail = await checkSimilarMail(formData.Email[0], formData.Email);
+        
         if(similarMail && similarMail.length > 0){
+          preventSend = true;
           setShowSimilar({show: true, alreadyclicked: false, items: [...similarMail]})
         }
-        else{
-          let response = await getUserData(formData.Email);
-          if (response) {
-            setUser(response);
-            const formatedResponse = {
-              Name: response.Name,
-              Email: response.Email,
-              Role: 'Crew Attendee'
-            }
-            setFormData({...formData, ...formatedResponse});
-          } else {
-            setUser(false);
-          }
-          handleClick(e);
-          setLoadingResponse(false);
-        }
+
       }
+      if(!preventSend){
+        let response = await getUserData(formData.Email);
+        if (response) {
+          setUser(response);
+          const formatedResponse = {
+            Name: response.Name,
+            Email: response.Email,
+            Role: 'Crew Attendee'
+          }
+          setFormData({...formData, ...formatedResponse});
+        } else {
+          setUser(false);
+        }
+        handleClick(e);
+        setLoadingResponse(false);
+      }
+      
      
         
     } catch (error) {
@@ -64,8 +69,7 @@ export const Step1 = ({ formData, setFormData, handleClick, handleChange }) => {
   const handlerPopUpMail = (newMail) => {
     setLoadingResponse(false)
     setShowSimilar({show: false,alreadyclicked: true, items: []})
-    // setFormData(current => ({Email: newMail, ...current}))
-    // console.log(formData)
+    setFormData(current => ({...current, Email: newMail}))
   }
   
   
@@ -105,6 +109,7 @@ export const Step1 = ({ formData, setFormData, handleClick, handleChange }) => {
               <div className="input-wrapper">
                 <label htmlFor="Email">Enter your email address*</label>
                 <input 
+                  disabled={showSimilar.show}
                   onChange={(e) => checkFormState(e)}
                   type="email" 
                   id="Email" 
