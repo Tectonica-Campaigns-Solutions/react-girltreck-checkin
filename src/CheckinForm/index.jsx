@@ -14,7 +14,7 @@ const CheckingForm = () => {
   const [formData, setFormData] = useState([]);
   const [loadingMap, setLoadingMap] = useState(false);
   const [acceptGDPR, setAcceptGDPR] = useState(false);
-  const [acceptData, setAcceptData] = useState(false);
+  const [acceptDataConsent, seAcceptDataConsent] = useState(false);
   const [acceptGeolocation, setAcceptGeolocation] = useState(false);
   const [localizationEnabled, setLocalizationEnabled] = useState(null);
 
@@ -97,16 +97,16 @@ const CheckingForm = () => {
         return <Step2 
           formData={formData} 
           acceptGDPR={acceptGDPR}
-          acceptData={acceptData}
+          acceptDataConsent={acceptDataConsent}
           loadingMap={loadingMap}
-          setAcceptGDPR={setAcceptGDPR}
-          setAcceptData={setAcceptData}
           setFormData={(e) => setFormData(e)} 
           handleClick={(e) => handleClick(e)} 
           handleChange={(e) => handleChange(e)}
           acceptGeolocation={acceptGeolocation} 
           localizationEnabled={localizationEnabled}
           setAcceptGeolocation={setAcceptGeolocation} 
+          setAcceptGDPR={setAcceptGDPR}
+          seAcceptDataConsent={seAcceptDataConsent}
         />
 
       case 2:
@@ -136,7 +136,9 @@ const CheckingForm = () => {
   }
 
   const handleChange = (e) => {
+    
     e.preventDefault();
+    
     if(e.target.name !== "geolocation" && e.target.name !== 'How many women are in your crew?') {
       setFormData({
         ...formData,
@@ -148,6 +150,7 @@ const CheckingForm = () => {
         [e.target.name]: Number(e.target.value)
       });
     }
+    console.log(formData)
   }
 
 

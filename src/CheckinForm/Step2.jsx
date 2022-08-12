@@ -7,83 +7,72 @@ import stepImage from '../images/step-1-bg.jpg'
 import { updateUserData } from './services/updateUserData';
 import { useEffect } from 'react';
 
-const Consent = ({formData, acceptData, acceptGDPR, setAcceptData,setAcceptGDPR}) => {
-  
-  const [accData, setAcctData] = useState(false)
-  const [accGdpr, setAcctGdpr] = useState(false)
-  const [accLiab, setAcctLiab] = useState(false)
+const Consent = ({handleChange, acceptGDPR, acceptDataConsent, setAcceptGDPR, seAcceptDataConsent}) => {
+  // useEffect(() => {
+  //     const externalScript = document.createElement("script");
+  //     externalScript.src = `https://www.smartwaiver.com/m/webpl/f.js?webpl_waiver=615fa299c802a&webpl_title=Sign%20our%20waiver&webpl_align=Right&webpl_fontsize=20&webpl_background=%23000000&webpl_fontcolor=%23FFFFFF&webpl_font=Verdana`;
+  //     externalScript.addEventListener('load', () => setLoaded(true))
+  //     document.body.appendChild(externalScript)
+  // }, []);
 
-  const handleChangeData = () => {
-    setAcctData(!accData)
-  }
+  // const [loaded, setLoaded] = useState(false)
 
-  const handleChangeGdpr = () => {
-    setAcctGdpr(!accGdpr)
-  }
+  const handlerChecked = (e) => {
+    if(e.target.classList.contains('gdpr-checkbox')){
+      if(e.target.dataset.value == 'true'){
+        setAcceptGDPR(true)
+      }else{
+        setAcceptGDPR(false)
+      }
+      e.target.name = 'GDPR consent'
+      e.target.value = acceptGDPR
+      handleChange(e)
+    }
 
-  const handleChangeLiability = () => {
-    setAcctLiab(!accGdpr)
+    if(e.target.classList.contains('data-consent-checkbox')){
+      if(e.target.dataset.value == 'true'){
+        seAcceptDataConsent(true)
+      }else{
+        seAcceptDataConsent(false)
+      }
+      e.target.name = 'Data consent'
+      e.target.value = acceptGDPR
+      handleChange(e)
+    }
   }
-  
   return (
     <>
       <div className="col-lg-4 offset-lg-4 consent-wrapper">
         <p className="label">GDPR Consent Text</p>
         <p className="consent__text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer dui eu mollis est viverra amet purus. Link to privacy policy or more details</p>
         <div className="consent-inputs">
-          <label className="input-wrapper input-wrapper--checkbox" htmlFor="gdprConsent">
+          <label className="input-wrapper input-wrapper--checkbox" htmlFor="GDPR consent">
             <span className="input-label">Yes</span>
-            <input 
-              value="yes"
-              id="gdpr-yes" 
-              type="checkbox" 
-              name="gdprConsent"
-              checked={accGdpr ? true : false}
-              
-            />
-            <span className="checkmark" onClick={ handleChangeGdpr }/>
+            <input type="radio"  name="GDPR consent" value="true" checked={acceptGDPR == true } />
+            <span className="checkmark gdpr-checkbox" data-value="true" onClick={(e) => handlerChecked(e)}/>
           </label>
-          <label className="input-wrapper input-wrapper--checkbox" htmlFor="gdprConsent">
+          <label className="input-wrapper input-wrapper--checkbox" htmlFor="GDPR consent">
             <span className="input-label">No</span>
-            <input 
-              value="no"
-              id="gdpr-no" 
-              type="checkbox" 
-              name="gdprConsent"
-              checked={accGdpr ? false : true}
-             
-            />
-            <span className="checkmark" onClick={ handleChangeGdpr } />
+            <input type="radio"  name="GDPR consent" value="false" checked={acceptGDPR == false}  />
+            <span className="checkmark gdpr-checkbox" name="GDPR consent" data-value="false" onClick={(e) => handlerChecked(e)}/>
           </label>
+          
+         
         </div>
       </div>
       <div className="col-lg-4 consent-wrapper">
         <p className="label">Publish Data Consent</p>
         <p className="consent__text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer dui eu mollis est viverra amet purus. Link to privacy policy or more details</p>
         <div className="consent-inputs">
-          <label className="input-wrapper input-wrapper--checkbox" htmlFor="dataConsent">
+          <label className="input-wrapper input-wrapper--checkbox" htmlFor="Data consent">
             <span className="input-label">Yes</span>
-            <input 
-              value="yes"
-              id="data-yes" 
-              type="checkbox" 
-              name="dataConsent"
-              checked={accData ? true : false}
-              
-            />
-            <span className="checkmark" onClick={ handleChangeData } />
+            <input type="radio"  name="Data consent" value="true" checked={acceptDataConsent == true } />
+            <span className="checkmark data-consent-checkbox" data-value="true" onClick={(e) => handlerChecked(e)}/>
           </label>
-          <label className="input-wrapper input-wrapper--checkbox" htmlFor="dataConsent">
+          <label className="input-wrapper input-wrapper--checkbox" htmlFor="dataCData consentonsent">
             <span className="input-label">No</span>
-            <input 
-              value="no"
-              id="data-no" 
-              type="checkbox" 
-              name="dataConsent"
-              checked={accData ? false : true}
-               
-            />
-            <span className="checkmark" onClick={ handleChangeData }/>
+            <input type="radio"  name="Data consent" value="false" checked={acceptDataConsent == false} />
+            <span className="checkmark data-consent-checkbox" data-value="false" onClick={(e) => handlerChecked(e)}/>
           </label>
         </div>
       </div>
@@ -91,35 +80,24 @@ const Consent = ({formData, acceptData, acceptGDPR, setAcceptData,setAcceptGDPR}
         <p className="label">Liability Consent</p>
         <p className="consent__text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer dui eu mollis est viverra amet purus. Link to privacy policy or more details</p>
         <div className="consent-inputs">
-          <label className="input-wrapper input-wrapper--checkbox" htmlFor="dataConsent">
-            <span className="input-label">Yes</span>
+        <a href='https://waiver.smartwaiver.com/w/615fa299c802a/web/' target='_blank'><div class='signdigitalwaiver_button_div'>Sign&nbsp;Digital&nbsp;Waiver</div></a>
+        {/* <label className="input-wrapper input-wrapper--checkbox" htmlFor="Liability Consent">
+            <span className="input-label">I've read...</span>
             <input 
-              value="yes"
-              id="data-yes" 
-              type="checkbox" 
-              name="dataConsent"
-              checked={accLiab ? true : false}
-            />
-            <span className="checkmark" onClick={ handleChangeLiability } />
-          </label>
-          <label className="input-wrapper input-wrapper--checkbox" htmlFor="dataConsent">
-            <span className="input-label">No</span>
-            <input 
-              value="no"
+              value="false"
               id="data-no" 
               type="checkbox" 
-              name="dataConsent"
-              checked={accLiab ? false : true}
+              name="Liability Consent"
             />
-            <span className="checkmark" onClick={ handleChangeLiability }/>
-          </label>
+            <span className="checkmark"/>
+          </label> */}
         </div>
       </div>
     </>
   )
 }
 
-export const Step2 = ({ formData, loadingMap, acceptGDPR, acceptData, setAcceptGDPR, setAcceptData, acceptGeolocation, setAcceptGeolocation, handleClick, handleChange, localizationEnabled }) => {
+export const Step2 = ({ formData, loadingMap, acceptGDPR, acceptDataConsent, acceptGeolocation, setAcceptGeolocation, handleClick, handleChange, localizationEnabled, setAcceptGDPR, seAcceptDataConsent }) => {
   const [error, setError] = useState('');
   const userData = useContext(UserContext);
 
@@ -135,8 +113,8 @@ export const Step2 = ({ formData, loadingMap, acceptGDPR, acceptData, setAcceptG
       setError('Please, add a correct email for the Crew Leader')
     } else if(!formData["Email"]) {
       setError('Please, add the email of the Crew Leader')
-    } else if(!formData["Affiliation"]) {
-      setError('Please, add the affiliation of the Crew')
+    // } else if(!formData["Affiliation"]) {
+    //   setError('Please, add the affiliation of the Crew')
     } else {
       if(!acceptGeolocation) {
         handleClick(e);
@@ -192,17 +170,12 @@ export const Step2 = ({ formData, loadingMap, acceptGDPR, acceptData, setAcceptG
           <div className="row step__inputs">
             <div className="offset-lg-4 col-lg-4 input-wrapper">
               <label htmlFor="crew-name">Crew Name *</label>
-              <select        
-                required 
+              <input type="text" 
                 id="crew-name" 
-                name="Crew Name" 
+                name="Crew name - manual" 
                 onChange={(e) => checkFormState(e)}
-                value={formData["Crew Name"] ? formData["Crew Name"] : ""}
-              >
-                <option value="">Select</option>
-                <option value="CrewName-1">CrewName-1</option>
-                <option value="CrewName-2">CrewName-2</option>
-              </select>
+                value={formData["Crew name - manual"] ? formData["Crew name - manual"] : ""}
+              />
             </div>
             <div className="col-lg-4 input-wrapper">
               <label htmlFor="crew-leader-name">Crew Leader Name *</label>
@@ -240,26 +213,8 @@ export const Step2 = ({ formData, loadingMap, acceptGDPR, acceptData, setAcceptG
                 onChange={(e) => checkFormState(e)}
               />
             </div>
-            <div className="offset-lg-4 col-lg-4 input-wrapper">
-              <label htmlFor="crew-affiliation">Crew Affiliation.*</label>
-              <select 
-                id="crew-affiliation" 
-                name="Affiliation" 
-                value={formData.Affiliation}
-                onChange={(e) => checkFormState(e)}
-              >
-                <option value="">Select</option>
-                <option value="Church">Church</option>
-                <option value="Sorority">Sorority</option>
-                <option value="Partner/Organization">Partner/Organization</option>
-                <option value="HBCU">HBCU</option>
-                <option value="Ally">Ally</option>
-              </select>
-            </div>
-            <div className="col-lg-4 input-wrapper padding-l">
-              <p>Are you leading a crew that is officially associated with a special impact area? Let us know and connect with a special impact coach here.</p>
-            </div>
-            
+
+
             <div className="offset-lg-4 col-lg-4 input-wrapper">
               <label htmlFor="role">Role*</label>
               <select 
@@ -269,7 +224,7 @@ export const Step2 = ({ formData, loadingMap, acceptGDPR, acceptData, setAcceptG
                 onChange={(e) => checkFormState(e)}
               >
                 <option value="">Select</option>
-                <option value="">Neighborhood Crew Leader</option>
+                <option value="Solo Trekker">Solo Trekker</option>
                 <option value="">Special Impact Crew Leader - Soroities</option>
                 <option value="">Special Impact Crew Leader - Churches</option>
                 <option value="">Special Impact Crew Leader - Adventure Squad</option>
@@ -277,6 +232,12 @@ export const Step2 = ({ formData, loadingMap, acceptGDPR, acceptData, setAcceptG
                 <option value="">Special Impact Crew Leader - Partner/Organization</option>
               </select>
             </div>
+
+            <div className="col-lg-4 input-wrapper padding-l">
+              <p>Are you leading a crew that is officially associated with a special impact area? Let us know and connect with a special impact coach here.</p>
+            </div>
+            
+            
 
             <div className="offset-lg-4 col-lg-8">
               <h3 className="step__input-headline">Where are you walking with your crew?</h3>
@@ -340,11 +301,12 @@ export const Step2 = ({ formData, loadingMap, acceptGDPR, acceptData, setAcceptG
               !user
                 &&
               <Consent 
-                formData={formData} 
-                acceptData={acceptData}
-                acceptGDPR={acceptGDPR}
-                setAcceptGDPR={setAcceptGDPR}
-                setAcceptData={setAcceptData}
+              acceptGDPR={acceptGDPR}  
+              handleChange={handleChange}
+              acceptDataConsent={acceptDataConsent}
+              setAcceptGDPR={setAcceptGDPR} 
+              seAcceptDataConsent={seAcceptDataConsent}
+              
               />
             }
 
