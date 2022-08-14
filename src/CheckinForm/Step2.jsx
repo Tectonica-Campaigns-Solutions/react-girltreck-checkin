@@ -2,102 +2,16 @@ import React, { useContext, useState } from 'react'
 import Map from './Map';
 import Logo from './Logo';
 import Button from './Button';
+import Consent from './Consent'
 import UserContext from './UserContext';
 import stepImage from '../images/step-1-bg.jpg'
 import { updateUserData } from './services/updateUserData';
 import { useEffect } from 'react';
 
-const Consent = ({handleChange, acceptGDPR, acceptDataConsent, setAcceptGDPR, seAcceptDataConsent}) => {
-  // useEffect(() => {
-  //     const externalScript = document.createElement("script");
-  //     externalScript.src = `https://www.smartwaiver.com/m/webpl/f.js?webpl_waiver=615fa299c802a&webpl_title=Sign%20our%20waiver&webpl_align=Right&webpl_fontsize=20&webpl_background=%23000000&webpl_fontcolor=%23FFFFFF&webpl_font=Verdana`;
-  //     externalScript.addEventListener('load', () => setLoaded(true))
-  //     document.body.appendChild(externalScript)
-  // }, []);
 
-  // const [loaded, setLoaded] = useState(false)
 
-  const handlerChecked = (e) => {
-    if(e.target.classList.contains('gdpr-checkbox')){
-      if(e.target.dataset.value == 'true'){
-        setAcceptGDPR(true)
-      }else{
-        setAcceptGDPR(false)
-      }
-      e.target.name = 'GDPR consent'
-      e.target.value = acceptGDPR
-      handleChange(e)
-    }
+const Step2 = ({ formData, loadingMap, acceptGDPR, acceptDataConsent, acceptGeolocation, setAcceptGeolocation, handleClick, handleChange, localizationEnabled, setAcceptGDPR, setAcceptDataConsent, setFormData, acceptLiabilty, setAcceptLiabilty }) => {
 
-    if(e.target.classList.contains('data-consent-checkbox')){
-      if(e.target.dataset.value == 'true'){
-        seAcceptDataConsent(true)
-      }else{
-        seAcceptDataConsent(false)
-      }
-      e.target.name = 'Data consent'
-      e.target.value = acceptGDPR
-      handleChange(e)
-    }
-  }
-  return (
-    <>
-      <div className="col-lg-4 offset-lg-4 consent-wrapper">
-        <p className="label">GDPR Consent Text</p>
-        <p className="consent__text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer dui eu mollis est viverra amet purus. Link to privacy policy or more details</p>
-        <div className="consent-inputs">
-          <label className="input-wrapper input-wrapper--checkbox" htmlFor="GDPR consent">
-            <span className="input-label">Yes</span>
-            <input type="radio"  name="GDPR consent" value="true" checked={acceptGDPR == true } />
-            <span className="checkmark gdpr-checkbox" data-value="true" onClick={(e) => handlerChecked(e)}/>
-          </label>
-          <label className="input-wrapper input-wrapper--checkbox" htmlFor="GDPR consent">
-            <span className="input-label">No</span>
-            <input type="radio"  name="GDPR consent" value="false" checked={acceptGDPR == false}  />
-            <span className="checkmark gdpr-checkbox" name="GDPR consent" data-value="false" onClick={(e) => handlerChecked(e)}/>
-          </label>
-          
-         
-        </div>
-      </div>
-      <div className="col-lg-4 consent-wrapper">
-        <p className="label">Publish Data Consent</p>
-        <p className="consent__text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer dui eu mollis est viverra amet purus. Link to privacy policy or more details</p>
-        <div className="consent-inputs">
-          <label className="input-wrapper input-wrapper--checkbox" htmlFor="Data consent">
-            <span className="input-label">Yes</span>
-            <input type="radio"  name="Data consent" value="true" checked={acceptDataConsent == true } />
-            <span className="checkmark data-consent-checkbox" data-value="true" onClick={(e) => handlerChecked(e)}/>
-          </label>
-          <label className="input-wrapper input-wrapper--checkbox" htmlFor="dataCData consentonsent">
-            <span className="input-label">No</span>
-            <input type="radio"  name="Data consent" value="false" checked={acceptDataConsent == false} />
-            <span className="checkmark data-consent-checkbox" data-value="false" onClick={(e) => handlerChecked(e)}/>
-          </label>
-        </div>
-      </div>
-      <div className="col-lg-4 offset-lg-4 consent-wrapper">
-        <p className="label">Liability Consent</p>
-        <p className="consent__text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer dui eu mollis est viverra amet purus. Link to privacy policy or more details</p>
-        <div className="consent-inputs">
-        <a href='https://waiver.smartwaiver.com/w/615fa299c802a/web/' target='_blank'><div class='signdigitalwaiver_button_div'>Sign&nbsp;Digital&nbsp;Waiver</div></a>
-        {/* <label className="input-wrapper input-wrapper--checkbox" htmlFor="Liability Consent">
-            <span className="input-label">I've read...</span>
-            <input 
-              value="false"
-              id="data-no" 
-              type="checkbox" 
-              name="Liability Consent"
-            />
-            <span className="checkmark"/>
-          </label> */}
-        </div>
-      </div>
-    </>
-  )
-}
-
-export const Step2 = ({ formData, loadingMap, acceptGDPR, acceptDataConsent, acceptGeolocation, setAcceptGeolocation, handleClick, handleChange, localizationEnabled, setAcceptGDPR, seAcceptDataConsent }) => {
   const [error, setError] = useState('');
   const userData = useContext(UserContext);
 
@@ -113,8 +27,10 @@ export const Step2 = ({ formData, loadingMap, acceptGDPR, acceptDataConsent, acc
       setError('Please, add a correct email for the Crew Leader')
     } else if(!formData["Email"]) {
       setError('Please, add the email of the Crew Leader')
-    // } else if(!formData["Affiliation"]) {
-    //   setError('Please, add the affiliation of the Crew')
+    } else if(formData["Liability Consent"] === "false") {
+       setError('Please, confirm you have read and sign Liability Consent')
+    } else if(!formData["Role"]) {
+        setError('Please, choose role')
     } else {
       if(!acceptGeolocation) {
         handleClick(e);
@@ -305,8 +221,12 @@ export const Step2 = ({ formData, loadingMap, acceptGDPR, acceptDataConsent, acc
               handleChange={handleChange}
               acceptDataConsent={acceptDataConsent}
               setAcceptGDPR={setAcceptGDPR} 
-              seAcceptDataConsent={seAcceptDataConsent}
-              
+              setAcceptDataConsent={setAcceptDataConsent}
+              formData={formData}
+              setFormData={setFormData}
+              checkInputsData={checkInputsData}
+              acceptLiabilty={acceptLiabilty}
+              setAcceptLiabilty={setAcceptLiabilty}
               />
             }
 
@@ -325,3 +245,6 @@ export const Step2 = ({ formData, loadingMap, acceptGDPR, acceptDataConsent, acc
     </div>
   )
 }
+
+
+export default Step2

@@ -5,7 +5,6 @@ var stringSimilarity = require("string-similarity");
 const checkSimilarMail = (letter, email) => {
 
   let mails = [];
-  console.time()
   return new Promise((resolve, reject) => {
     base('Checkins').select({
       // Selecting the first 3 records in ROLL CALL: DID YOU WALK WITH US?:
@@ -31,9 +30,8 @@ const checkSimilarMail = (letter, email) => {
      
     
     }, function done(err) {
-      console.timeEnd()
       if (err) { console.error(err); return; }
-      return resolve(mails);
+      return resolve(Array.from(new Set(mails)));
     });
   })
 }

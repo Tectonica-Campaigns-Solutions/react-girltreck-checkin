@@ -46,13 +46,18 @@ export const Step1 = ({ formData, setFormData, handleClick, handleChange }) => {
         let response = await getUserData(formData.Email);
         if (response) {
           setUser(response);
+         
           const formatedResponse = {
             Name: response.Name,
             Email: response.Email,
-            Role: 'Crew Attendee'
+            Role: 'Crew Attendee',
+            'GDPR consent': response['GDPR consent'].toString(),
+            'Data consent': response['Data consent'].toString(),
+            'Liability Consent': response['Liability Consent']
           }
           setFormData({...formData, ...formatedResponse});
         } else {
+          setFormData({...formData, 'GDPR consent': 'false','Data consent': 'false', 'Liability Consent': 'false'});
           setUser(false);
         }
         handleClick(e);

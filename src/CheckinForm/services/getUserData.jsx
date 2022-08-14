@@ -18,7 +18,9 @@ const getUserData = (email) => {
         'State', 
         'Association',
         'Neighborhood',
-        'How many women are in your crew?'
+        'How many women are in your crew?',
+        'Data consent',
+        'GDPR consent'
       ]
     }).eachPage(function page(records, fetchNextPage) {
         // This function (`page`) will get called for each page of records.

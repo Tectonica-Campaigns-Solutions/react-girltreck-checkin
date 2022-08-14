@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { Step1 } from './Step1';
-import { Step2 } from './Step2';
+import Step2 from './Step2';
 import { Step3 } from './Step3';
 import { FinalStep } from './FinalStep';
 import UserContext from './UserContext';
@@ -13,16 +13,18 @@ const CheckingForm = () => {
   const [coords, setCoords] = useState();
   const [formData, setFormData] = useState([]);
   const [loadingMap, setLoadingMap] = useState(false);
-  const [acceptGDPR, setAcceptGDPR] = useState(false);
-  const [acceptDataConsent, seAcceptDataConsent] = useState(false);
+  const [acceptGDPR, setAcceptGDPR] = useState('false');
+  const [acceptDataConsent, setAcceptDataConsent] = useState('false');
+  const [acceptLiabilty, setAcceptLiabilty] = useState('false');
   const [acceptGeolocation, setAcceptGeolocation] = useState(false);
   const [localizationEnabled, setLocalizationEnabled] = useState(null);
 
-
+  
   // ======================
   // Hooks
   // When state acceptGeolocation changes, pass current location to formData
   useEffect(() => {
+ 
     if(acceptGeolocation) {
       setLoadingMap(true);
       navigator.geolocation.getCurrentPosition((position) => {
@@ -98,6 +100,8 @@ const CheckingForm = () => {
           formData={formData} 
           acceptGDPR={acceptGDPR}
           acceptDataConsent={acceptDataConsent}
+          setAcceptGDPR={setAcceptGDPR}
+          setAcceptDataConsent={setAcceptDataConsent}
           loadingMap={loadingMap}
           setFormData={(e) => setFormData(e)} 
           handleClick={(e) => handleClick(e)} 
@@ -105,8 +109,8 @@ const CheckingForm = () => {
           acceptGeolocation={acceptGeolocation} 
           localizationEnabled={localizationEnabled}
           setAcceptGeolocation={setAcceptGeolocation} 
-          setAcceptGDPR={setAcceptGDPR}
-          seAcceptDataConsent={seAcceptDataConsent}
+          acceptLiabilty={acceptLiabilty}
+          setAcceptLiabilty={setAcceptLiabilty}
         />
 
       case 2:
@@ -136,7 +140,6 @@ const CheckingForm = () => {
   }
 
   const handleChange = (e) => {
-    
     e.preventDefault();
     
     if(e.target.name !== "geolocation" && e.target.name !== 'How many women are in your crew?') {
@@ -150,7 +153,8 @@ const CheckingForm = () => {
         [e.target.name]: Number(e.target.value)
       });
     }
-    console.log(formData)
+
+    
   }
 
 
