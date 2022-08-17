@@ -21,7 +21,9 @@ const Step2 = ({ formData, loadingMap, acceptGDPR, acceptDataConsent, acceptGeol
   // Event handlers
 
   const checkInputsData = async (e) => {
-    if(!formData["Name"]) {
+    if(!formData["Crew name - manual"]) {
+      setError('Please, add crew name')
+    }else if(!formData["Name"]) {
       setError('Please, add the name of the Crew Leader')
     } else if (formData["Email"] && !formData["Email"].includes('@')) {
       setError('Please, add a correct email for the Crew Leader')

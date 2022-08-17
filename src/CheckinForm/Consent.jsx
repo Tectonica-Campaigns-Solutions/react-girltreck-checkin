@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 
 
-const Consent = ({formData, acceptGDPR, acceptDataConsent, setAcceptGDPR,         setAcceptDataConsent, setFormData, acceptLiabilty, setAcceptLiabilty}) => {
+const Consent = ({formData, acceptGDPR, acceptDataConsent, setAcceptGDPR, setAcceptDataConsent, setFormData, acceptLiabilty, setAcceptLiabilty}) => {
   
   const [loaded, setLoaded] = useState(false)
 
@@ -41,39 +41,6 @@ const Consent = ({formData, acceptGDPR, acceptDataConsent, setAcceptGDPR,       
   return (
     <>
       <div className="col-lg-4 offset-lg-4 consent-wrapper">
-        <p className="label">GDPR Consent Text</p>
-        <p className="consent__text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer dui eu mollis est viverra amet purus. Link to privacy policy or more details</p>
-        <div className="consent-inputs">
-          <label className="input-wrapper input-wrapper--checkbox" htmlFor="">
-            <span className="input-label">Yes</span>
-            <input type="radio"  name="GDPR consent" value="true" checked={acceptGDPR === 'true'} />
-            <span className="checkmark" onClick={(e) => handleCheckedGDPR({target: {value: 'true', name: 'GDPR consent'}}) }></span>
-          </label>
-          <label className="input-wrapper input-wrapper--checkbox" htmlFor="">
-            <span className="input-label">No</span>
-            <input type="radio"  name="GDPR consent" value="false" checked={acceptGDPR === 'false'}/>
-            <span className="checkmark" onClick={(e) => handleCheckedGDPR({target: {value: 'false', name: 'GDPR consent'}}) }></span>
-          </label>
-         
-        </div>
-      </div>
-      <div className="col-lg-4 consent-wrapper">
-        <p className="label">Publish Data Consent</p>
-        <p className="consent__text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer dui eu mollis est viverra amet purus. Link to privacy policy or more details</p>
-        <div className="consent-inputs">
-          <label htmlFor="" className="input-wrapper input-wrapper--checkbox">
-            <span className="input-label">Yes</span>
-            <input type="radio"  name="Data consent" value="true" checked={acceptDataConsent === 'true'} />
-            <span className="checkmark" onClick={(e) => handleCheckedDataConsent({target: {value: 'true', name: 'Data consent'}}) }></span>
-          </label>
-          <label htmlFor="" className="input-wrapper input-wrapper--checkbox">
-          <span className="input-label">No</span>
-            <input type="radio"  name="Data consent" value="false" checked={acceptDataConsent === 'false'}/>
-            <span className="checkmark" onClick={(e) => handleCheckedDataConsent({target: {value: 'false', name: 'Data consent'}}) }></span>
-          </label>
-        </div>
-      </div>
-      <div className="col-lg-4 offset-lg-4 consent-wrapper">
         <p className="label">Liability Consent</p>
         <p className="consent__text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer dui eu mollis est viverra amet purus. Link to privacy policy or more details</p>
         <div className="consent-inputs">
@@ -95,6 +62,40 @@ const Consent = ({formData, acceptGDPR, acceptDataConsent, setAcceptGDPR,       
          
         </div>
       </div>
+      <div className="col-lg-4 consent-wrapper">
+        <p className="label">GDPR Consent Text</p>
+        <p className="consent__text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer dui eu mollis est viverra amet purus. Link to privacy policy or more details</p>
+        <div className="consent-inputs">
+          <label className="input-wrapper input-wrapper--checkbox" htmlFor="">
+            <span className="input-label">Yes</span>
+            <input type="radio"  name="GDPR consent" value="true" checked={acceptGDPR === 'true'} />
+            <span className="checkmark" onClick={(e) => handleCheckedGDPR({target: {value: 'true', name: 'GDPR consent'}}) }></span>
+          </label>
+          <label className="input-wrapper input-wrapper--checkbox" htmlFor="">
+            <span className="input-label">No</span>
+            <input type="radio"  name="GDPR consent" value="false" checked={acceptGDPR === 'false'}/>
+            <span className="checkmark" onClick={(e) => handleCheckedGDPR({target: {value: 'false', name: 'GDPR consent'}}) }></span>
+          </label>
+         
+        </div>
+      </div>
+      <div className="col-lg-4  offset-lg-4 consent-wrapper">
+        <p className="label">Publish Data Consent</p>
+        <p className="consent__text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer dui eu mollis est viverra amet purus. Link to privacy policy or more details</p>
+        <div className="consent-inputs">
+          <label htmlFor="" className="input-wrapper input-wrapper--checkbox">
+            <span className="input-label">Yes</span>
+            <input type="radio"  name="Data consent" value="true" checked={acceptDataConsent === 'true'} />
+            <span className="checkmark" onClick={(e) => handleCheckedDataConsent({target: {value: 'true', name: 'Data consent'}}) }></span>
+          </label>
+          <label htmlFor="" className="input-wrapper input-wrapper--checkbox">
+          <span className="input-label">No</span>
+            <input type="radio"  name="Data consent" value="false" checked={acceptDataConsent === 'false'}/>
+            <span className="checkmark" onClick={(e) => handleCheckedDataConsent({target: {value: 'false', name: 'Data consent'}}) }></span>
+          </label>
+        </div>
+      </div>
+     
     </>
   )
 }

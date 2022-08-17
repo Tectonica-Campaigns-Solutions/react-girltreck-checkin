@@ -84,32 +84,6 @@ export const Step3 = ({ formData, handleClick, handleChange }) => {
                 </select>
               </div>
             </div>
-            <div className="col-lg-4">
-              <div className="input-wrapper">
-                <label htmlFor="city">City *</label>
-                <input 
-                  onChange={(e) => checkFormState(e)}
-                  type="text" 
-                  id="city" 
-                  name="City" 
-                  placeholder=""
-                  value={formData.city}
-                />
-              </div>
-            </div>
-            <div className="col-lg-4 offset-lg-4">
-              <div className="input-wrapper">
-                <label htmlFor="neighborhood">Neighborhood *</label>
-                <input 
-                  onChange={(e) => checkFormState(e)}
-                  type="text" 
-                  id="neighborhood" 
-                  name="Neighborhood" 
-                  placeholder="ie: Greenville"
-                  value={formData.neighborhood}
-                />
-              </div>
-            </div>
             {
               currentUsa && (
                 <div className="col-lg-4">
@@ -147,6 +121,33 @@ export const Step3 = ({ formData, handleClick, handleChange }) => {
                 </div>  
               )
             }
+            <div className="col-lg-4 offset-lg-4">
+              <div className="input-wrapper">
+                <label htmlFor="city">City *</label>
+                <input 
+                  onChange={(e) => checkFormState(e)}
+                  type="text" 
+                  id="city" 
+                  name="City" 
+                  placeholder=""
+                  value={formData.city}
+                />
+              </div>
+            </div>
+            <div className="col-lg-4 ">
+              <div className="input-wrapper">
+                <label htmlFor="neighborhood">Neighborhood *</label>
+                <input 
+                  onChange={(e) => checkFormState(e)}
+                  type="text" 
+                  id="neighborhood" 
+                  name="Neighborhood" 
+                  placeholder="ie: Greenville"
+                  value={formData.neighborhood}
+                />
+              </div>
+            </div>
+            
             
             <div className="col-lg-4 offset-lg-4">
               <div className="input-wrapper">

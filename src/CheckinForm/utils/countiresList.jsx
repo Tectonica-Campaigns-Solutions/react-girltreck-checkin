@@ -1,5 +1,7 @@
 // Sorted alphabetical by country name (special characters on bottom)
 const countryList = [
+  "United States of America (the)",
+  "Ghana",
 	"Afghanistan",
 	"Albania",
 	"Algeria",
@@ -83,7 +85,6 @@ const countryList = [
 	"Gambia (the)",
 	"Georgia",
 	"Germany",
-	"Ghana",
 	"Gibraltar",
 	"Greece",
 	"Greenland",
@@ -235,7 +236,6 @@ const countryList = [
 	"United Arab Emirates (the)",
 	"United Kingdom of Great Britain and Northern Ireland (the)",
 	"United States Minor Outlying Islands (the)",
-	"United States of America (the)",
 	"Uruguay",
 	"Uzbekistan",
 	"Vanuatu",

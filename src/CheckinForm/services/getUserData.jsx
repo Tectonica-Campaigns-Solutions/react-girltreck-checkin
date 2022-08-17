@@ -26,7 +26,7 @@ const getUserData = (email) => {
         // This function (`page`) will get called for each page of records.
   
         records.forEach(function(record) {
-          userData = {...record.fields, "id": record.id};
+          userData = {...record.fields, "id": record.id, ['Data consent']: typeof(record.fields['Data consent']) === 'undefined' ? 'false' : 'true', ['GDPR consent']: typeof(record.fields['GDPR consent']) === 'undefined' ? 'false' : 'true'  };
         });
   
         // To fetch the next page of records, call `fetchNextPage`.
