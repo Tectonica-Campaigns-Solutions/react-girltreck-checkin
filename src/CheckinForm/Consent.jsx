@@ -1,17 +1,27 @@
 import React, { useEffect, useState } from 'react'
 
 
-const Consent = ({formData, acceptGDPR, acceptDataConsent, setAcceptGDPR, setAcceptDataConsent, setFormData, acceptLiabilty, setAcceptLiabilty}) => {
+const Consent = ({formData, acceptGDPR, acceptDataConsent, setAcceptGDPR, setAcceptDataConsent, setFormData, acceptLiabilty, setAcceptLiabilty, step}) => {
   
   const [loaded, setLoaded] = useState(false)
 
   useEffect(() => {
-    const script = document.createElement("script");
-    script.src =
-  "https://www.smartwaiver.com/m/webpl/f.js?webpl_waiver=615fa299c802a&webpl_title=Sign%20our%20waiver&webpl_align=Right&webpl_fontsize=20&webpl_background=%23000000&webpl_fontcolor=%23FFFFFF&webpl_font=Verdana";
-    script.addEventListener('load', ()=> setLoaded(true))
-    document.body.appendChild(script)
-  }, [])
+    
+    if(acceptLiabilty === 'false'){
+      const script = document.createElement("script");
+      script.src =
+    "https://www.smartwaiver.com/m/webpl/f.js?webpl_waiver=615fa299c802a&webpl_title=Sign%20our%20waiver&webpl_align=Right&webpl_fontsize=20&webpl_background=%23000000&webpl_fontcolor=%23FFFFFF&webpl_font=Verdana";
+      script.classList.add('iframe-waiver');
+      script.addEventListener('load', ()=> setLoaded(true))
+      document.body.appendChild(script)
+    }else{
+      const scripts = document.body.querySelectorAll('.waiver-iframe, .smartwaiver_floater_right')
+      scripts.forEach(item => {
+        item.remove()
+      })
+    }
+    
+  }, [acceptLiabilty])
   
   const handleCheckedGDPR = (e) => {
     setAcceptGDPR(e.target.value)

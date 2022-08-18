@@ -10,7 +10,7 @@ import { useEffect } from 'react';
 
 
 
-const Step2 = ({ formData, loadingMap, acceptGDPR, acceptDataConsent, acceptGeolocation, setAcceptGeolocation, handleClick, handleChange, localizationEnabled, setAcceptGDPR, setAcceptDataConsent, setFormData, acceptLiabilty, setAcceptLiabilty }) => {
+const Step2 = ({ formData, loadingMap, acceptGDPR, acceptDataConsent, acceptGeolocation, setAcceptGeolocation, handleClick, handleChange, localizationEnabled, setAcceptGDPR, setAcceptDataConsent, setFormData, acceptLiabilty, setAcceptLiabilty, step }) => {
 
   const [error, setError] = useState('');
   const userData = useContext(UserContext);
@@ -229,6 +229,8 @@ const Step2 = ({ formData, loadingMap, acceptGDPR, acceptDataConsent, acceptGeol
               checkInputsData={checkInputsData}
               acceptLiabilty={acceptLiabilty}
               setAcceptLiabilty={setAcceptLiabilty}
+              showPopupLiabilty={true}
+              step={step}
               />
             }
 

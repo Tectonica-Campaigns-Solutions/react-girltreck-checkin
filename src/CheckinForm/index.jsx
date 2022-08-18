@@ -111,6 +111,7 @@ const CheckingForm = () => {
           setAcceptGeolocation={setAcceptGeolocation} 
           acceptLiabilty={acceptLiabilty}
           setAcceptLiabilty={setAcceptLiabilty}
+          step={step}
         />
 
       case 2:
