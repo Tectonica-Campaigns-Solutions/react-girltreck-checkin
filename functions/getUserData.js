@@ -1,11 +1,11 @@
 var Airtable = require('airtable');
 var base = new Airtable({apiKey: 'key9z9Pzc5zVNu1Cf'}).base('appfeeyxdJVXg9g6q');
 
-const getUserData = (email) => {
-
+exports.handler = async function (event, context){
   let userData;
-
-  return new Promise((resolve, reject) => {
+  let data = JSON.parse(event.body)
+  let email = data.email
+  const response =  new Promise((resolve, reject) => {
     base('Checkins').select({
       view: 'Checkins list',
       filterByFormula: `Email = "${email}"`,
@@ -24,7 +24,6 @@ const getUserData = (email) => {
       ]
     }).eachPage(function page(records, fetchNextPage) {
         // This function (`page`) will get called for each page of records.
-  
         records.forEach(function(record) {
           userData = {...record.fields, "id": record.id, ['Data consent']: typeof(record.fields['Data consent']) === 'undefined' ? 'false' : 'true', ['GDPR consent']: typeof(record.fields['GDPR consent']) === 'undefined' ? 'false' : 'true'  };
         });
@@ -35,11 +34,11 @@ const getUserData = (email) => {
         fetchNextPage();
   
     }, function done(err) {
-        if (err) { console.error(err); return; }
-        return resolve(userData);
+      if (err) { console.error(err); return { statusCode: 500}; }
+      return resolve({ statusCode: 200, body: JSON.stringify(userData)});
     });
   })
 
+  return response;
+  
 }
-
-export { getUserData };

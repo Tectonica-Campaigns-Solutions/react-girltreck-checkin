@@ -1,8 +1,9 @@
 var Airtable = require('airtable');
 var base = new Airtable({apiKey: 'key9z9Pzc5zVNu1Cf'}).base('appfeeyxdJVXg9g6q');
 
-const updateUserData = (formData) => {
-  return new Promise((resolve, reject) => {
+exports.handler = async function (event, context){
+  const formData = JSON.parse(event.body)
+  const response = new Promise((resolve, reject) => {
     base('Checkins').create([
       {
         "fields": {
@@ -31,14 +32,12 @@ const updateUserData = (formData) => {
       },
     ], function(err, records) {
       if (err) {
-        console.error(err);
-        return { statusCode : 500}
+        return { statusCode: 500 }
       }
 
-      return resolve(true)
+      return resolve({ statusCode:200 })
     });
   })
-
+  
+  return response;
 }
-
-export { updateUserData };

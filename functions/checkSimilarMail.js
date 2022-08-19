@@ -2,10 +2,12 @@ var Airtable = require('airtable');
 var base = new Airtable({apiKey: 'key9z9Pzc5zVNu1Cf'}).base('appfeeyxdJVXg9g6q');
 var stringSimilarity = require("string-similarity");
 
-const checkSimilarMail = (letter, email) => {
-
+exports.handler = async function (event, context){
+  let data = JSON.parse(event.body)
+  let email = data.email
+  let letter = email[0]
   let mails = [];
-  return new Promise((resolve, reject) => {
+  const response = new Promise((resolve, reject) => {
     base('Checkins').select({
       // Selecting the first 3 records in ROLL CALL: DID YOU WALK WITH US?:
       maxRecords: 400,
@@ -14,6 +16,7 @@ const checkSimilarMail = (letter, email) => {
     
     }).eachPage(function page(records, fetchNextPage) {
       // This function (`page`) will get called for each page of records.
+
       records.forEach(function(record) {
         var similarity = stringSimilarity.compareTwoStrings(email,record.get('Email'));
 
@@ -30,10 +33,10 @@ const checkSimilarMail = (letter, email) => {
      
     
     }, function done(err) {
-      if (err) { console.error(err); return; }
-      return resolve(Array.from(new Set(mails)));
+      if (err) { return { statusCode: 500} }
+      return resolve({statusCode:200, body: JSON.stringify(Array.from(new Set(mails)))})
     });
   })
+  return response
+  
 }
-
-export { checkSimilarMail };

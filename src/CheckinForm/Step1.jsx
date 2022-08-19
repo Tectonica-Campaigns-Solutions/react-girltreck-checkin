@@ -1,6 +1,5 @@
 import React, { useContext, useState } from 'react'
-import { getUserData } from './services/getUserData'
-import { checkSimilarMail } from './services/checkSimilarMail'
+import axios from 'axios'
 import UserContext from './UserContext';
 import Logo from './Logo';
 import Button from './Button';
@@ -34,7 +33,8 @@ export const Step1 = ({ formData, setFormData, handleClick, handleChange }) => {
     let preventSend = false;
     try {
       if(!showSimilar.alreadyclicked){
-        similarMail = await checkSimilarMail(formData.Email[0], formData.Email);
+        let getSimilarMail  = await axios({method: 'post', url: '/.netlify/functions/checkSimilarMail', data: {email: formData.Email}})
+        similarMail = await getSimilarMail.data
         
         if(similarMail && similarMail.length > 0){
           preventSend = true;
@@ -43,7 +43,8 @@ export const Step1 = ({ formData, setFormData, handleClick, handleChange }) => {
 
       }
       if(!preventSend){
-        let response = await getUserData(formData.Email);
+        let getUser = await axios({method: 'post', url: '/.netlify/functions/getUserData', data: {email: formData.Email}})
+        let response = await getUser.data
         if (response) {
           setUser(response);
          
