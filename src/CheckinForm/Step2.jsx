@@ -5,7 +5,7 @@ import Button from './Button';
 import Consent from './Consent'
 import UserContext from './UserContext';
 import stepImage from '../images/step-1-bg.jpg'
-import { updateUserData } from './services/updateUserData';
+import axios from 'axios'
 import { useEffect } from 'react';
 
 
@@ -38,8 +38,8 @@ const Step2 = ({ formData, loadingMap, acceptGDPR, acceptDataConsent, acceptGeol
         handleClick(e);
       } else {
         try {
-          let response = await updateUserData(formData);
-          if (response) {
+          let response = await axios({method:'post', url: '/.netlify/functions/updateUserData', data: formData })
+          if (response.status == 200) {
             handleClick(e);
           } else {
             setError(`Error`)

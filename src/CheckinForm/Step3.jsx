@@ -1,6 +1,5 @@
 import React, { useState } from 'react'
 import Button from './Button';
-import { updateUserData } from './services/updateUserData';
 import axios from 'axios'
 import countriesList from './utils/countiresList';
 import statesUsa from './utils/statesUsa'
@@ -25,7 +24,6 @@ export const Step3 = ({ formData, handleClick, handleChange }) => {
       setError('Please, add a postal code')
     } else {
       try {
-        //let response = await updateUserData(formData);
         let response = await axios({method:'post', url: '/.netlify/functions/updateUserData', data: formData })
         if (response.status == 200) {
           handleClick(e);
