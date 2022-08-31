@@ -141,6 +141,10 @@
         padding-top: 0;
       }
     }
+    a{
+      color:#1146BF;
+      text-decoration:none;
+    }
   }
 
   &__inputs {
@@ -281,7 +285,7 @@
 
 .step__1 {
   .step__content {
-    padding-top: 283px;
+    padding-top: 200px;
 
     @media only screen and (max-width: 991px) {
       padding-top: 37px;
@@ -444,6 +448,10 @@
 
   &__text {
     margin-bottom: 0;
+    a{
+      color:#1146BF;
+      text-decoration:none;
+    }
   }
 }
 
@@ -496,4 +504,23 @@
 @keyframes spin {
   0% { transform: rotate(0deg); }
   100% { transform: rotate(360deg); }
+}
+
+.buble-link{
+  cursor:pointer;
+  padding-top:80px;
+  position:relative;
+  > p{
+    font-weight:700;
+  }
+}
+.buble-box{
+  position:absolute;
+  top:-40px;
+  background-color:#F3F3F3;
+  padding:10px 15px;
+  border-radius:3px;
+  max-width:300px;
+  font-size:12px;
+  border:1px solid #E0E0E0
 }

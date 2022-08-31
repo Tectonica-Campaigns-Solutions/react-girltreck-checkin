@@ -52,7 +52,7 @@ const Consent = ({formData, acceptGDPR, acceptDataConsent, setAcceptGDPR, setAcc
     <>
       <div className="col-lg-4 offset-lg-4 consent-wrapper">
         <p className="label">Liability Consent</p>
-        <p className="consent__text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer dui eu mollis est viverra amet purus. Link to privacy policy or more details</p>
+        <p className="consent__text">I have read the <a href="https://waiver.smartwaiver.com/v/girltrek/">Release of Liability</a> and fully understand its contents, and I voluntarily agree to the terms and conditions stated above.</p>
         <div className="consent-inputs">
            <label htmlFor="" className="input-wrapper input-wrapper--checkbox">
            <span className="input-label">I've read and signed Liability Consent</span>
@@ -73,8 +73,8 @@ const Consent = ({formData, acceptGDPR, acceptDataConsent, setAcceptGDPR, setAcc
         </div>
       </div>
       <div className="col-lg-4 consent-wrapper">
-        <p className="label">GDPR Consent Text</p>
-        <p className="consent__text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer dui eu mollis est viverra amet purus. Link to privacy policy or more details</p>
+        <p className="label">GDPR</p>
+        <p className="consent__text">I agree to receive communications from Girltrek</p>
         <div className="consent-inputs">
           <label className="input-wrapper input-wrapper--checkbox" htmlFor="">
             <span className="input-label">Yes</span>

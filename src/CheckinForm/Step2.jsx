@@ -80,7 +80,10 @@ const Step2 = ({ formData, loadingMap, acceptGDPR, acceptDataConsent, acceptGeol
                     <p className="step__text">You can confirm or update your info below. <a href="">Not {formData.Name}?</a></p>
                   </>
                 :
+                <>
                   <h2 className="step__headline">Welcome to GirlTrek Crew Leaders</h2>
+                  <p className="step__text">Let us know your details. Fill out the information below only once and it will pre-fill in the future</p>
+                </>
               }
             </div>
           </div>
@@ -125,7 +128,7 @@ const Step2 = ({ formData, loadingMap, acceptGDPR, acceptDataConsent, acceptGeol
                 required 
                 id="phone" 
                 type="phone" 
-                placeholder=""
+                placeholder="+18762229999"
                 name="Phone" 
                 value={formData.Phone}
                 onChange={(e) => checkFormState(e)}
@@ -142,7 +145,7 @@ const Step2 = ({ formData, loadingMap, acceptGDPR, acceptDataConsent, acceptGeol
                 onChange={(e) => checkFormState(e)}
               >
                 <option value="">Select</option>
-                <option value="Solo Trekker">Solo Trekker</option>
+                <option value="">Neighborhood Crew Leader</option>
                 <option value="">Special Impact Crew Leader - Soroities</option>
                 <option value="">Special Impact Crew Leader - Churches</option>
                 <option value="">Special Impact Crew Leader - Adventure Squad</option>
@@ -152,7 +155,7 @@ const Step2 = ({ formData, loadingMap, acceptGDPR, acceptDataConsent, acceptGeol
             </div>
 
             <div className="col-lg-4 input-wrapper padding-l">
-              <p>Are you leading a crew that is officially associated with a special impact area? Let us know and connect with a special impact coach here.</p>
+              <p>Are you leading a crew that is officially associated with one of GirlTrek's special interest groups? Let us know and connect with a special impact coach <a href="">here</a>.</p>
             </div>
             
             

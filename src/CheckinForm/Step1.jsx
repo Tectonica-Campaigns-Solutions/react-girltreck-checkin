@@ -10,10 +10,14 @@ export const Step1 = ({ formData, setFormData, handleClick, handleChange }) => {
   const [loadingResponse, setLoadingResponse] = useState(false);
   const { setUser } = useContext(UserContext);
   const [showSimilar, setShowSimilar] = useState({show: false, alreadyclicked: false, items: []});
-
+  const [showBubble, setShowBubble] = useState(false)
 
   // ======================
   // Event handlers
+
+  const handlerBuble = (val) => {
+    setShowBubble(val)
+  }
   
   const checkInputsData = (e) => {
     if(!formData.Email) {
@@ -101,6 +105,7 @@ export const Step1 = ({ formData, setFormData, handleClick, handleChange }) => {
                 <Logo/>
               </div>
               <h1 className="step__hero__headline">Calling all Leaders to<br/>Check in!</h1>
+              
             </div>
           </div>
 
@@ -108,6 +113,7 @@ export const Step1 = ({ formData, setFormData, handleClick, handleChange }) => {
 
             <div className="step__intro">
               <h2 className="step__headline">Did you lead a crew walk?</h2>
+              <p>Check-in every time you lead your crew. Help us grow this movement and show that we are taking over 1000 Black Neighborhoods around the nation. </p>
             </div>
 
             <div className="step__inputs">
@@ -157,6 +163,18 @@ export const Step1 = ({ formData, setFormData, handleClick, handleChange }) => {
                 &&
               <p className="error-message">{error}</p>
             }
+            <div>
+              
+              <div className="buble-link" onMouseEnter={() => handlerBuble(true)} onMouseLeave={() => handlerBuble(false)}>
+                <p>Are you a solo trekker or crew walk attendee?</p>
+                {
+                showBubble && (
+                  <div className="buble-box">If so, please checkin on instagram or facebook using #girltrek every-time you walk. Represent yourself or your crew and help us show the world this movement is taking over the streets. Our goal of 1,000 posts every week.</div>
+                )
+              }
+                </div>
+            </div>
+            
           </div>
 
         </div>
