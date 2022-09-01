@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react'
+import React, { useContext, useState, useEffect } from 'react'
 import axios from 'axios'
 import UserContext from './UserContext';
 import Logo from './Logo';
@@ -18,6 +18,14 @@ export const Step1 = ({ formData, setFormData, handleClick, handleChange }) => {
   const handlerBuble = (val) => {
     setShowBubble(val)
   }
+
+  useEffect(()=> {
+    document.querySelector('body').addEventListener('click', (e) => {
+      if(!e.target.classList.contains('link-open-bubble')){
+        setShowBubble(false)
+      }
+    })
+  })
   
   const checkInputsData = (e) => {
     if(!formData.Email) {
@@ -165,8 +173,8 @@ export const Step1 = ({ formData, setFormData, handleClick, handleChange }) => {
             }
             <div>
               
-              <div className="buble-link" onMouseEnter={() => handlerBuble(true)} onMouseLeave={() => handlerBuble(false)}>
-                <p>Are you a solo trekker or crew walk attendee?</p>
+              <div className="buble-link"  >
+                <p className="link-open-bubble" onClick={() => handlerBuble(true)}>Are you a solo trekker or crew walk attendee?</p>
                 {
                 showBubble && (
                   <div className="buble-box">If so, please checkin on instagram or facebook using #girltrek every-time you walk. Represent yourself or your crew and help us show the world this movement is taking over the streets. Our goal of 1,000 posts every week.</div>

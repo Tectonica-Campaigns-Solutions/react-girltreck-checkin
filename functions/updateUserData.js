@@ -21,7 +21,7 @@ exports.handler = async function (event, context){
           "Liability Consent": true,
           // 20/Jul/22
           // Now is set in Airtable that nobody can modify this field
-          "Role": formData.Role,
+          "Role - new form": formData.Role,
           "non USA state": formData['non USA state'],
           "Postal Code": formData['Postal Code'],
           "Country": formData.Country,

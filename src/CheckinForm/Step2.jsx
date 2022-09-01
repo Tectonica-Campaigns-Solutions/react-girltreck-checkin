@@ -6,6 +6,7 @@ import Consent from './Consent'
 import UserContext from './UserContext';
 import stepImage from '../images/step-1-bg.jpg'
 import axios from 'axios'
+import iconInfo from '../images/icon-info.svg';
 import { useEffect } from 'react';
 
 
@@ -14,11 +15,25 @@ const Step2 = ({ formData, loadingMap, acceptGDPR, acceptDataConsent, acceptGeol
 
   const [error, setError] = useState('');
   const userData = useContext(UserContext);
+  const [showBubbleInfo, setShowBubbleInfo] = useState(false)
 
   const  { user } = userData;
 
+  useEffect(()=> {
+    document.querySelector('body').addEventListener('click', (e) => {
+      if(!e.target.classList.contains('icon-info')){
+        setShowBubbleInfo(false)
+      }
+    })
+  })
+
   // ======================
   // Event handlers
+
+  const handlerBubble = () => {
+    console.log('handler')
+    setShowBubbleInfo(true)
+  }
 
   const checkInputsData = async (e) => {
     if(!formData["Crew name - manual"]) {
@@ -145,22 +160,28 @@ const Step2 = ({ formData, loadingMap, acceptGDPR, acceptDataConsent, acceptGeol
                 onChange={(e) => checkFormState(e)}
               >
                 <option value="">Select</option>
-                <option value="">Neighborhood Crew Leader</option>
-                <option value="">Special Impact Crew Leader - Soroities</option>
-                <option value="">Special Impact Crew Leader - Churches</option>
-                <option value="">Special Impact Crew Leader - Adventure Squad</option>
-                <option value="">Special Impact Crew Leader - HBCUs</option>
-                <option value="">Special Impact Crew Leader - Partner/Organization</option>
+                <option value="Neighborhood Crew Leader">Neighborhood Crew Leader</option>
+                <option value="Special Impact Crew Leader - Soroities">Special Impact Crew Leader - Soroities</option>
+                <option value="Special Impact Crew Leader - Churches">Special Impact Crew Leader - Churches</option>
+                <option value="Special Impact Crew Leader - Adventure Squad">Special Impact Crew Leader - Adventure Squad</option>
+                <option value="Special Impact Crew Leader - HBCUs">Special Impact Crew Leader - HBCUs</option>
+                <option value="Special Impact Crew Leader - Partner/Organization">Special Impact Crew Leader - Partner/Organization</option>
               </select>
             </div>
 
-            <div className="col-lg-4 input-wrapper padding-l">
-              <p>Are you leading a crew that is officially associated with one of GirlTrek's special interest groups? Let us know and connect with a special impact coach <a href="">here</a>.</p>
+            <div className="col-lg-4 input-wrapper padding-l bubble-info d-flex align-items-center">
+            <img src={iconInfo} alt="" onClick={() => handlerBubble()} className="icon-info" />
+              {
+                showBubbleInfo && (
+                  <p className="buble-box-right">Are you leading a crew that is officially associated with one of GirlTrek's special interest groups? Let us know and connect with a special impact coach <a href="/" target="_blank">here</a>.</p>
+                )
+              }
+              
             </div>
             
             
 
-            <div className="offset-lg-4 col-lg-8">
+            <div className="offset-lg-4 col-lg-8 mt-4 mt-lg-0">
               <h3 className="step__input-headline">Where are you walking with your crew?</h3>
               <p className="step__text">Fill out the info below so we can connect women to you.</p>
             </div>

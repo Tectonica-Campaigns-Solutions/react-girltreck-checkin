@@ -507,12 +507,17 @@
 }
 
 .buble-link{
-  cursor:pointer;
+  
   padding-top:80px;
   position:relative;
   > p{
     font-weight:700;
+    cursor:pointer;
   }
+}
+
+.bubble-info{
+  position:relative;
 }
 .buble-box{
   position:absolute;
@@ -522,5 +527,38 @@
   border-radius:3px;
   max-width:300px;
   font-size:12px;
-  border:1px solid #E0E0E0
+  border:1px solid #E0E0E0;
+  &:after{
+    content:"";
+    display:block;
+    width: 0; 
+    height: 0; 
+    border-left: 10px solid transparent;
+    border-right: 10px solid transparent;
+    
+    border-top: 10px solid #F3F3F3;
+    position:absolute;
+    bottom:-10px;
+    margin-left:auto;
+    margin-right:auto;
+    left:0;
+    right:0;
+  }
+}
+
+.buble-box-right{
+  position:absolute;
+  top:0px;
+  left:50px;
+  background-color:#F3F3F3;
+  padding:10px 15px;
+  border-radius:3px;
+  max-width:350px;
+  font-size:12px;
+  border:1px solid #E0E0E0;
+}
+
+.icon-info{
+  cursor:pointer;
+  margin-bottom:20px;
 }
