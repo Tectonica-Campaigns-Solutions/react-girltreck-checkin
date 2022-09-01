@@ -468,7 +468,7 @@
 
 .box-mails{
   margin-top:-20px;
-  border:1px solid red;
+  background-color:#F6F6F6;
   margin-bottom:10px;
   position:relative;
   padding:10px;
@@ -561,4 +561,9 @@
 .icon-info{
   cursor:pointer;
   margin-bottom:20px;
+}
+
+input.error{
+  border:1px solid #FF4B65;
+  background-color:rgba(255, 75, 101, 0.2);
 }

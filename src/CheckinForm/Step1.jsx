@@ -137,6 +137,7 @@ export const Step1 = ({ formData, setFormData, handleClick, handleChange }) => {
                   required 
                   placeholder="ie: yourname@example.com"
                   value={formData.Email ? formData.Email : ""}
+                  className={showSimilar && showSimilar.show ? 'error': ''}
                 />
                 {
                   showSimilar && showSimilar.show && <div className="box-mails">
