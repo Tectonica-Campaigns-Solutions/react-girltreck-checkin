@@ -48,16 +48,15 @@ const CheckingForm = () => {
 
   // Geolocate user when app mounts
   useEffect(() => {
-    navigator.permissions.query({name:'geolocation'}).then(function(result) {
-
-      if (result.state === 'granted' || result.state === 'prompt') {
-        
-        setAcceptGeolocation(true)
-        setLocalizationEnabled(true)
-      } else if (result.state === 'denied') {
+    navigator.geolocation.getCurrentPosition(
+      ()=>{setAcceptGeolocation(true)
+            setLocalizationEnabled(true)
+      },
+      ()=>{
         setAcceptGeolocation(false)
         setLocalizationEnabled(false)
-      }})
+      }
+    )
   }, [])
   
   // Get location data using Mapbox Api when coords state changes
