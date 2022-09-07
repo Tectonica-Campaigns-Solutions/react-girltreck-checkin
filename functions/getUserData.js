@@ -24,8 +24,11 @@ exports.handler = async function (event, context){
       ]
     }).eachPage(function page(records, fetchNextPage) {
         // This function (`page`) will get called for each page of records.
-        records.forEach(function(record) {
-          userData = {...record.fields, "id": record.id, ['Data consent']: typeof(record.fields['Data consent']) === 'undefined' ? 'false' : 'true', ['GDPR consent']: typeof(record.fields['GDPR consent']) === 'undefined' ? 'false' : 'true'  };
+        records.forEach(function(record, index) {
+          if(index == 0){
+            userData = {...record.fields, "id": record.id, ['Data consent']: typeof(record.fields['Data consent']) === 'undefined' ? 'false' : 'true', ['GDPR consent']: typeof(record.fields['GDPR consent']) === 'undefined' ? 'false' : 'true'  };
+          }
+          
         });
   
         // To fetch the next page of records, call `fetchNextPage`.
