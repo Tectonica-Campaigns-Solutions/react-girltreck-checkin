@@ -30,7 +30,7 @@ export const Step1 = ({ formData, setFormData, handleClick, handleChange }) => {
   const checkInputsData = (e) => {
     if(!formData.Email) {
       setError('Please, add an email to continue');
-    } else if (formData.Email && !formData.Email.includes('@')) {
+    } else if (formData.Email && !(/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(formData.Email))) {
       setError('Please, add a correct email to continue');
     } else if(!formData["How many women are in your crew?"]) {
       setError('Please, add the how many women are in your crew')
