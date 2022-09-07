@@ -44,7 +44,9 @@ const Step2 = ({ formData, loadingMap, acceptGDPR, acceptDataConsent, acceptGeol
       setError('Please, add a correct email for the Crew Leader')
     } else if(!formData["Email"]) {
       setError('Please, add the email of the Crew Leader')
-    } else if(formData["Liability Consent"] === "false") {
+    } else if(!formData["Phone"]) {
+      setError('Please, add phone number')
+    }else if(formData["Liability Consent"] === "false") {
        setError('Please, confirm you have read and sign Liability Consent')
     } else if(!formData["Role"]) {
         setError('Please, choose role')
