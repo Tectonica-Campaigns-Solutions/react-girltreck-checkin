@@ -511,12 +511,12 @@
 }
 
 .buble-link{
-  
+  display:flex;
   padding-top:80px;
   position:relative;
   > p{
     font-weight:700;
-    cursor:pointer;
+    padding-right:10px;
   }
 }
 

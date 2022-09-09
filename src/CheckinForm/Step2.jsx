@@ -18,6 +18,7 @@ const Step2 = ({ formData, loadingMap, acceptGDPR, acceptDataConsent, acceptGeol
   const [showBubbleInfo, setShowBubbleInfo] = useState(false)
 
   const  { user } = userData;
+  console.log(user)
 
   useEffect(()=> {
     document.querySelector('body').addEventListener('click', (e) => {
@@ -31,7 +32,6 @@ const Step2 = ({ formData, loadingMap, acceptGDPR, acceptDataConsent, acceptGeol
   // Event handlers
 
   const handlerBubble = () => {
-    console.log('handler')
     setShowBubbleInfo(true)
   }
 
@@ -112,7 +112,7 @@ const Step2 = ({ formData, loadingMap, acceptGDPR, acceptDataConsent, acceptGeol
                 id="crew-name" 
                 name="Crew name - manual" 
                 onChange={(e) => checkFormState(e)}
-                value={formData["Crew name - manual"] ? formData["Crew name - manual"] : ""}
+                value={user["Crew name - manual"] ? user["Crew name - manual"] : ""}
               />
             </div>
             <div className="col-lg-4 input-wrapper">
@@ -158,9 +158,10 @@ const Step2 = ({ formData, loadingMap, acceptGDPR, acceptDataConsent, acceptGeol
               <select 
                 id="role" 
                 name="Role" 
-                value={formData.Role}
+                value={user['Role - new form']}
                 onChange={(e) => checkFormState(e)}
               >
+                
                 <option value="">Select</option>
                 <option value="Neighborhood Crew Leader">Neighborhood Crew Leader</option>
                 <option value="Special Impact Crew Leader - Soroities">Special Impact Crew Leader - Soroities</option>

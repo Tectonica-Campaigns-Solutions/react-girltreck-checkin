@@ -4,6 +4,7 @@ import UserContext from './UserContext';
 import Logo from './Logo';
 import Button from './Button';
 import stepImage from '../images/step-1-bg.jpg'
+import iconInfo from '../images/icon-info.svg';
 
 export const Step1 = ({ formData, setFormData, handleClick, handleChange }) => {
   const [error, setError] = useState(false);
@@ -21,7 +22,7 @@ export const Step1 = ({ formData, setFormData, handleClick, handleChange }) => {
 
   useEffect(()=> {
     document.querySelector('body').addEventListener('click', (e) => {
-      if(!e.target.classList.contains('link-open-bubble')){
+      if(!e.target.classList.contains('icon-info')){
         setShowBubble(false)
       }
     })
@@ -175,10 +176,11 @@ export const Step1 = ({ formData, setFormData, handleClick, handleChange }) => {
             <div>
               
               <div className="buble-link"  >
-                <p className="link-open-bubble" onClick={() => handlerBuble(true)}>Are you a solo trekker or crew walk attendee?</p>
+                <p className="link-open-bubble" >Are you a solo trekker or crew walk attendee?</p>
+                <img src={iconInfo} alt="" onClick={() => handlerBuble(true)} className="icon-info" />
                 {
                 showBubble && (
-                  <div className="buble-box">If so, please checkin on instagram or facebook using #girltrek every-time you walk. Represent yourself or your crew and help us show the world this movement is taking over the streets. Our goal of 1,000 posts every week.</div>
+                  <div className="buble-box">If so, please checkin on instagram or facebook using #girltrek every-time you walk. Represent yourself or your crew and help us show the world this movement is taking over the streets. Our goal is 1,000 tags each week.</div>
                 )
               }
                 </div>

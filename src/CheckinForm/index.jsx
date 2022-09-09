@@ -28,7 +28,6 @@ const CheckingForm = () => {
     if(acceptGeolocation) {
       setLoadingMap(true);
       navigator.geolocation.getCurrentPosition((position) => {
-        console.log(position)
         setFormData({
           ...formData,
           Latitude: acceptGeolocation ? position.coords.latitude : null,
