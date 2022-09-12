@@ -1,4 +1,4 @@
-airtable_api_key
+var airtable_api_key = process.env.AIRTABLE_API_KEY;
 var Airtable = require('airtable');
 var base = new Airtable({apiKey: airtable_api_key}).base('appfeeyxdJVXg9g6q');
 
@@ -15,15 +15,15 @@ exports.handler = async function (event, context){
           "Phone": formData.Phone,
           //"Crew Name": formData['Crew Name'],
           "Crew name - manual": formData['Crew name - manual'],
-          "Association": formData.Affiliation,
+          // "Association": formData.Affiliation,
           "Neighborhood": formData.Neighborhood,
           "GDPR consent": formData['GDPR consent'] === 'true' ? true : false,
           "Data consent": formData['Data consent'] === 'true' ? true : false,
           "Liability Consent": true,
-          // 20/Jul/22
-          // Now is set in Airtable that nobody can modify this field
-          "Role - new form": formData.Role,
-          "non USA state": formData['non USA state'],
+          // // 20/Jul/22
+          // // Now is set in Airtable that nobody can modify this field
+          "Role - new form": formData["Role - new form"],
+          "non USA state": formData['non USA state'] ? formData['non USA state'] : '',
           "Postal Code": formData['Postal Code'],
           "Country": formData.Country,
           "Longitude": formData.Longitude,
@@ -41,4 +41,10 @@ exports.handler = async function (event, context){
   })
   
   return response;
+
+  // example test response
+  // const response = new Promise((resolve, reject) => {
+  //   return resolve({ statusCode:200 })
+  // })
+  // return response;
 }

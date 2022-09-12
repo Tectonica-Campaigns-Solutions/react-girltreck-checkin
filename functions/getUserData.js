@@ -13,7 +13,6 @@ exports.handler = async function (event, context){
       fields: [
         'Name', 
         'Email', 
-        'Role', 
         'Postal Code', 
         'City', 
         'State', 

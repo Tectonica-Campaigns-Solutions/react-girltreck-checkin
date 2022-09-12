@@ -126,7 +126,7 @@ const CheckingForm = () => {
 
   const handleClick = (e) => {
     e.preventDefault();
-    
+    console.log(e)
     const target = e.target.id;
     if(target === 'continue') {
       if(step === 1 && acceptGeolocation === true) {

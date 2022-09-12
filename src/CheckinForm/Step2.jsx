@@ -14,6 +14,7 @@ import { useEffect } from 'react';
 const Step2 = ({ formData, loadingMap, acceptGDPR, acceptDataConsent, acceptGeolocation, setAcceptGeolocation, handleClick, handleChange, localizationEnabled, setAcceptGDPR, setAcceptDataConsent, setFormData, acceptLiabilty, setAcceptLiabilty, step }) => {
 
   const [error, setError] = useState('');
+  const [networkError, setNetworkError] = useState(false);
   const userData = useContext(UserContext);
   const [showBubbleInfo, setShowBubbleInfo] = useState(false)
 
@@ -26,6 +27,16 @@ const Step2 = ({ formData, loadingMap, acceptGDPR, acceptDataConsent, acceptGeol
       }
     })
   })
+
+  useEffect(() => {
+    if(user){
+      setFormData({
+        ...formData,
+          ["Crew name - manual"]: user["Crew name - manual"],
+          ["Role - new form"]: user["Role - new form"]
+      });
+    }
+  }, [user])
 
   // ======================
   // Event handlers
@@ -47,7 +58,7 @@ const Step2 = ({ formData, loadingMap, acceptGDPR, acceptDataConsent, acceptGeol
       setError('Please, add phone number')
     }else if(formData["Liability Consent"] === "false") {
        setError('Please, confirm you have read and sign Liability Consent')
-    } else if(!formData["Role"]) {
+    } else if(!formData["Role - new form"]) {
         setError('Please, choose role')
     } else {
       if(!acceptGeolocation) {
@@ -58,10 +69,12 @@ const Step2 = ({ formData, loadingMap, acceptGDPR, acceptDataConsent, acceptGeol
           if (response.status == 200) {
             handleClick(e);
           } else {
-            setError(`Error`)
+            setNetworkError(true)
           }
         } catch (error) {
           console.error(error);
+          setError('')
+          setNetworkError(true)
         }
       }
     }
@@ -74,7 +87,7 @@ const Step2 = ({ formData, loadingMap, acceptGDPR, acceptDataConsent, acceptGeol
 
   return (
     <div className="step step__2">
-
+      
       <div className="step__background">
         <img src={stepImage} alt="" />
       </div>
@@ -86,7 +99,7 @@ const Step2 = ({ formData, loadingMap, acceptGDPR, acceptDataConsent, acceptGeol
         <div className="step__background--color">
         </div>
         <div className="step__content">
-
+          
           <div className="row">
             <div className="offset-lg-4 col-lg-8 step__intro">
               {
@@ -111,7 +124,7 @@ const Step2 = ({ formData, loadingMap, acceptGDPR, acceptDataConsent, acceptGeol
                 id="crew-name" 
                 name="Crew name - manual" 
                 onChange={(e) => checkFormState(e)}
-                value={user["Crew name - manual"] ? user["Crew name - manual"] : ""}
+                value={formData["Crew name - manual"] ? formData["Crew name - manual"] : ""}
               />
             </div>
             <div className="col-lg-4 input-wrapper">
@@ -156,8 +169,8 @@ const Step2 = ({ formData, loadingMap, acceptGDPR, acceptDataConsent, acceptGeol
               <label htmlFor="role">Role*</label>
               <select 
                 id="role" 
-                name="Role" 
-                value={user['Role - new form']}
+                name="Role - new form" 
+                value={formData['Role - new form']}
                 onChange={(e) => checkFormState(e)}
               >
                 
@@ -261,6 +274,11 @@ const Step2 = ({ formData, loadingMap, acceptGDPR, acceptDataConsent, acceptGeol
             }
 
             <div className="offset-lg-4 col-lg-8">
+              {
+                networkError && (
+                  <div className="alert alert-danger mt-3" role="alert">Something went wrong. Try again later</div>
+                )
+              }
               <Button checkInputsData={checkInputsData}/>
               {
                 error 
