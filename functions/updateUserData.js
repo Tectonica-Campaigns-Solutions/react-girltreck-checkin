@@ -1,5 +1,6 @@
+airtable_api_key
 var Airtable = require('airtable');
-var base = new Airtable({apiKey: 'key9z9Pzc5zVNu1Cf'}).base('appfeeyxdJVXg9g6q');
+var base = new Airtable({apiKey: airtable_api_key}).base('appfeeyxdJVXg9g6q');
 
 exports.handler = async function (event, context){
   const formData = JSON.parse(event.body)

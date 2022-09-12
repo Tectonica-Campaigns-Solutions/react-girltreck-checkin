@@ -18,7 +18,6 @@ const Step2 = ({ formData, loadingMap, acceptGDPR, acceptDataConsent, acceptGeol
   const [showBubbleInfo, setShowBubbleInfo] = useState(false)
 
   const  { user } = userData;
-  console.log(user)
 
   useEffect(()=> {
     document.querySelector('body').addEventListener('click', (e) => {
