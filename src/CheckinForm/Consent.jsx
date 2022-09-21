@@ -52,10 +52,10 @@ const Consent = ({formData, acceptGDPR, acceptDataConsent, setAcceptGDPR, setAcc
     <>
       <div className="col-lg-4 offset-lg-4 consent-wrapper">
         <p className="label">Liability Consent</p>
-        <p className="consent__text">I have read the <a target="_blank" href="https://waiver.smartwaiver.com/v/girltrek/">Release of Liability</a> and fully understand its contents, and I voluntarily agree to the terms and conditions stated above.</p>
+        <p className="consent__text"></p>
         <div className="consent-inputs">
-           <label htmlFor="" className="input-wrapper input-wrapper--checkbox">
-           <span className="input-label">I've read and signed Liability Consent</span>
+           <label htmlFor="" className="input-wrapper input-wrapper--checkbox small-text">
+           I have read, signed, and fully understand, agree to, and accept voluntarily all provisions of GirlTrek’s <a target="_blank" href="https://waiver.smartwaiver.com/v/girltrek/">Release of Liability and Waiver</a>
             <input 
               value={acceptLiabilty ? 'true' : 'false'}
               id="data-no" 
@@ -91,7 +91,7 @@ const Consent = ({formData, acceptGDPR, acceptDataConsent, setAcceptGDPR, setAcc
       </div>
       <div className="col-lg-4  offset-lg-4 consent-wrapper">
         <p className="label">Publish Data Consent</p>
-        <p className="consent__text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer dui eu mollis est viverra amet purus. Link to privacy policy or more details</p>
+        <p className="consent__text">I consent to, and authorize GirlTrek to publish my email, name, and city for use as a part of the GirlTrek Directory.</p>
         <div className="consent-inputs">
           <label htmlFor="" className="input-wrapper input-wrapper--checkbox">
             <span className="input-label">Yes</span>
