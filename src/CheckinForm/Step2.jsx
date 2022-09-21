@@ -29,11 +29,13 @@ const Step2 = ({ formData, loadingMap, acceptGDPR, acceptDataConsent, acceptGeol
   })
 
   useEffect(() => {
+   
     if(user){
       setFormData({
         ...formData,
           ["Crew name - manual"]: user["Crew name - manual"],
-          ["Role - new form"]: user["Role - new form"]
+          ["Role - new form"]: user["Role - new form"],
+          Phone: user.Phone
       });
     }
   }, [user])
@@ -54,7 +56,7 @@ const Step2 = ({ formData, loadingMap, acceptGDPR, acceptDataConsent, acceptGeol
       setError('Please, add a correct email for the Crew Leader')
     } else if(!formData["Email"]) {
       setError('Please, add the email of the Crew Leader')
-    } else if(!formData["Phone"]) {
+    } else if(!formData["Phone"] && !user) {
       setError('Please, add phone number')
     }else if(formData["Liability Consent"] === "false") {
        setError('Please, confirm you have read and sign Liability Consent')
@@ -151,21 +153,24 @@ const Step2 = ({ formData, loadingMap, acceptGDPR, acceptDataConsent, acceptGeol
                 onChange={(e) => checkFormState(e)}
               />
             </div>
-            <div className="col-lg-4 input-wrapper">
-              <label htmlFor="phone">Phone Number*</label>
-              <input 
-                required 
-                id="phone" 
-                type="phone" 
-                placeholder="+18762229999"
-                name="Phone" 
-                value={formData.Phone}
-                onChange={(e) => checkFormState(e)}
-              />
-            </div>
+            
+              <div className={`col-lg-4 input-wrapper ${ user ? 'd-none' : ''}`}>
+                <label htmlFor="phone">Phone Number*</label>
+                <input 
+                  required 
+                  id="phone" 
+                  type="phone" 
+                  placeholder="+18762229999"
+                  name="Phone" 
+                  value={formData.Phone}
+                  onChange={(e) => checkFormState(e)}
+                />
+              </div>
+              
+            
 
 
-            <div className="offset-lg-4 col-lg-4 input-wrapper">
+            <div className={`${!user ? 'offset-lg-4' : ''} col-lg-4 input-wrapper`}>
               <label htmlFor="role">Role*</label>
               <select 
                 id="role" 
@@ -184,7 +189,7 @@ const Step2 = ({ formData, loadingMap, acceptGDPR, acceptDataConsent, acceptGeol
               </select>
             </div>
 
-            <div className="col-lg-4 input-wrapper padding-l bubble-info d-flex align-items-center">
+            <div className={`${user ? 'offset-lg-4' : ''} col-lg-4 input-wrapper padding-l bubble-info d-flex align-items-center`}>
             <img src={iconInfo} alt="" onClick={() => handlerBubble()} className="icon-info" />
               {
                 showBubbleInfo && (

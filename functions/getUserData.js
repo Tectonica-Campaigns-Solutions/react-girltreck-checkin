@@ -23,6 +23,7 @@ exports.handler = async function (event, context){
         'GDPR consent',
         "Crew name - manual",
         "Role - new form",
+        "Phone",
       ]
     }).eachPage(function page(records, fetchNextPage) {
         // This function (`page`) will get called for each page of records.
