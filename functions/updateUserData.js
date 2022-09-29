@@ -3,8 +3,53 @@ var Airtable = require('airtable');
 var base = new Airtable({apiKey: airtable_api_key}).base('appfeeyxdJVXg9g6q');
 
 exports.handler = async function (event, context){
+  let total = 0
   const formData = JSON.parse(event.body)
-  const response = new Promise((resolve, reject) => {
+  const email = formData.Email
+
+  
+  await new Promise((resolve, reject) => {
+    base('Checkins').select({
+      
+      maxRecords: 400,
+      view: "Checkins list",
+      filterByFormula: `Email = "${email}"`,
+    
+    }).eachPage(function page(records, fetchNextPage) {
+      total += records.length
+      fetchNextPage();
+    }, function done(err) {
+      if (err) { return reject()}
+      return resolve()
+    });
+  })
+
+  await new Promise((resolve, reject) => {
+    if(total == 3){
+      console.log('add to directory')
+      base('Dummy Directory Data (Test)').create([
+        {
+          "fields": {
+            "Name": formData.Name,
+            "Email (Organizing/ Public Facing Email)":  formData.Email,
+            "City (Please use full city name - ie. Chicago, Washington)": formData.City,
+            "Country": formData.Country,
+            "Crew Name": formData['Crew name - manual'],
+            "Address - Zip Code": formData['Postal Code'],
+          }
+        }
+      ], function(err, records) {
+        if (err) {
+          console.log(err)
+          return reject()
+        }
+        return resolve()
+      });
+    }
+    return resolve()
+  })
+
+  const response = await new Promise((resolve, reject) => {
     base('Checkins').create([
       {
         "fields": {
@@ -42,9 +87,4 @@ exports.handler = async function (event, context){
   
   return response;
 
-  // example test response
-  // const response = new Promise((resolve, reject) => {
-  //   return resolve({ statusCode:200 })
-  // })
-  // return response;
 }
