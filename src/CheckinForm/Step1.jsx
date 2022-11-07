@@ -42,13 +42,19 @@ export const Step1 = ({ formData, setFormData, handleClick, handleChange }) => {
   
   const checkEmail = async (e) => {
     setLoadingResponse(true);
+    let similarMailResponse;
     let similarMail;
     let preventSend = false;
     try {
       if(!showSimilar.alreadyclicked){
-        let getSimilarMail  = await axios({method: 'post', url: '/.netlify/functions/checkSimilarMail', data: {email: formData.Email}})
-        similarMail = await getSimilarMail.data
-        
+        let getSimilarMail  = await axios({
+          method: 'post', 
+          url: 'https://us-central1-girltrektectonica.cloudfunctions.net/appCheckSimilarEmail', 
+          data: {email: formData.Email},
+          headers: { 'Content-Type': 'application/json' },
+        })
+        similarMailResponse = await getSimilarMail.data
+        similarMail = JSON.parse(similarMailResponse.body)
         if(similarMail && similarMail.length > 0){
           preventSend = true;
           setShowSimilar({show: true, alreadyclicked: false, items: [...similarMail]})
@@ -56,11 +62,17 @@ export const Step1 = ({ formData, setFormData, handleClick, handleChange }) => {
 
       }
       if(!preventSend){
-        let getUser = await axios({method: 'post', url: '/.netlify/functions/getUserData', data: {email: formData.Email}})
-        let response = await getUser.data
-        if (response) {
+        let getUser = await axios({
+          method: 'post', 
+          url: 'https://us-central1-girltrektectonica.cloudfunctions.net/appGetUserData',
+          data: {email: formData.Email},
+          headers: { 'Content-Type': 'application/json' }
+        })
+        let responseServer = await getUser.data
+        if (responseServer.body) {
+          let response = JSON.parse(responseServer.body)
+          console.log(response)
           setUser(response);
-         
           const formatedResponse = {
             Name: response.Name,
             Email: response.Email,

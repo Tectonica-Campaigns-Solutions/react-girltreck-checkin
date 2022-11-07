@@ -48,6 +48,7 @@ const Step2 = ({ formData, loadingMap, acceptGDPR, acceptDataConsent, acceptGeol
   }
 
   const checkInputsData = async (e) => {
+    console.log(formData)
     if(!formData["Crew name - manual"]) {
       setError('Please, add crew name')
     }else if(!formData["Name"]) {
@@ -67,8 +68,14 @@ const Step2 = ({ formData, loadingMap, acceptGDPR, acceptDataConsent, acceptGeol
         handleClick(e);
       } else {
         try {
-          let response = await axios({method:'post', url: '/.netlify/functions/updateUserData', data: formData })
-          if (response.status == 200) {
+          let response = await axios({
+            method:'post', 
+            url: 'https://us-central1-girltrektectonica.cloudfunctions.net/appUpdateUserData',
+            headers: { 'Content-Type': 'application/json' },
+            data: formData
+          })
+          console.log(response)
+          if (response.statusCode == 200) {
             handleClick(e);
           } else {
             setNetworkError(true)

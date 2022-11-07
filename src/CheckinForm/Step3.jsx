@@ -24,14 +24,20 @@ export const Step3 = ({ formData, handleClick, handleChange }) => {
       setError('Please, add a postal code')
     } else {
       try {
-        let response = await axios({method:'post', url: '/.netlify/functions/updateUserData', data: formData })
-        if (response.status == 200) {
+        let response = await axios({
+          method:'post', 
+          url: 'https://us-central1-girltrektectonica.cloudfunctions.net/appUpdateUserData', 
+          data: formData,
+          headers: { 'Content-Type': 'application/json' },
+         })
+        if (response.statusCode == 200) {
           handleClick(e);
         } else {
           setError(`Error`)
         }
       } catch (error) {
         console.error(error);
+        setError(`Error`)
       }
     }
   }
