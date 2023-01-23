@@ -30,6 +30,7 @@ const Step2 = ({
   const [networkError, setNetworkError] = useState(false);
   const userData = useContext(UserContext);
   const [showBubbleInfo, setShowBubbleInfo] = useState(false);
+  const [loadingResponse, setLoadingResponse] = useState(false);
 
   const { user } = userData;
 
@@ -79,6 +80,7 @@ const Step2 = ({
         handleClick(e);
       } else {
         try {
+          setLoadingResponse(true);
           let response = await axios({
             method: "post",
             url: "https://us-central1-girltrektectonica.cloudfunctions.net/appUpdateUserData",
@@ -88,6 +90,7 @@ const Step2 = ({
 
           if (response.status == 200) {
             handleClick(e);
+            setLoadingResponse(false);
           } else {
             setNetworkError(true);
           }
@@ -95,6 +98,7 @@ const Step2 = ({
           console.error(error);
           setError("");
           setNetworkError(true);
+          setLoadingResponse(false);
         }
       }
     }
@@ -351,7 +355,7 @@ const Step2 = ({
                   Something went wrong. Try again later
                 </div>
               )}
-              <Button checkInputsData={checkInputsData} />
+              <Button checkInputsData={checkInputsData} disabled={loadingResponse} loading={loadingResponse} />
               {error && <p className="error-message">{error}</p>}
             </div>
           </div>

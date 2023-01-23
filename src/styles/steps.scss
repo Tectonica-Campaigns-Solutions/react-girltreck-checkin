@@ -318,6 +318,12 @@
 
 .step__2,
 .step__3 {
+  .step__button.hide{
+    opacity:0.5;
+    + svg{
+      opacity:0.5;
+    }
+  }
   .step__background {
     @media only screen and (max-width: 991px) {
       position: relative;
@@ -413,13 +419,20 @@
 
     @media only screen and (max-width: 991px) {
       text-align: left;
-      max-width: 75%;
+      max-width: 90%;
+      font-size:1.9rem;
     }
   }
   .step__background {
     z-index: -1;
     position: absolute;
     width: 100%;
+  }
+  @media only screen and (max-width: 991px) {
+    height:57%;
+    + .footer{
+      height:auto;
+    }
   }
 }
 
