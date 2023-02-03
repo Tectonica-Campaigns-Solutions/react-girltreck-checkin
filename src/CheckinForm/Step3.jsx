@@ -30,7 +30,8 @@ export const Step3 = ({ formData, handleClick, handleChange }) => {
           data: formData,
           headers: { 'Content-Type': 'application/json' },
          })
-        if (response.statusCode == 200) {
+
+        if (response.data.status === 200) {
           handleClick(e);
         } else {
           setError(`Error`)
